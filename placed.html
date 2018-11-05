@@ -185,10 +185,14 @@
 
 			// console.log(psdata);
 			s = psdata.length;
-			if(query_type=="name")
-			  names.push(psdata[i].name); //NAME
-			else
-			  names.push(psdata[i].usn);
+  		  names=[]; //SMART SEARCH OFF
+  		  for( var i=0; i<s; i++ )
+  		  {
+  			  if(query_type=="name")
+  			  	names.push(psdata[i].name); //NAME
+  			  else
+  			  	names.push(psdata[i].usn);
+  		  }
 			// console.log(names);
 			//LOAD COMPLETE
 		}
