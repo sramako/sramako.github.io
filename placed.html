@@ -282,7 +282,13 @@
 		function submit() {
 			usn=document.getElementById('USN').innerHTML;
 			company=document.getElementById('company').value;
-			fte=document.getElementById('fte').checked;
+			if(document.getElementById('fte').checked)
+			{
+				fte="true";
+			}
+			else {
+				fte="false";
+			}
 			intern=document.getElementById('intern').checked;
 			$.post("https://ppdb-ep.herokuapp.com/placement",
 			{
