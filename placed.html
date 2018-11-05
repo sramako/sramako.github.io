@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/imagehover.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 	<style>
 	#container{
@@ -269,11 +270,11 @@
 					// document.getElementById('form').style.visibility="hidden";
 					document.getElementById('form').style.display = "none";
 					document.getElementById("search").value="";
-					window.alert("Updated");
+					swal("Updated");
 				}
 				else {
 					console.log("Failed to update");
-					window.alert("Failed to update");
+					swal("Failed to update");
 				}
 			})}
 

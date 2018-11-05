@@ -167,7 +167,7 @@ app.controller('myCtrl', function($scope) {
 		 });
 
 		 function foo(){
-			 window.alert("Form Submitted");
+			 swal("Form Submitted");
 		     window.location = "announcements.html";
 		     eventposted=1;
 		 }
