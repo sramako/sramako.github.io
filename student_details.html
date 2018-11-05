@@ -48,14 +48,15 @@
     </nav>
   <!--/ Navigation bar-->
 
-  <div class="container details">
-    Enter USN to fetch details: <input type="text" name="USN" id="USN">
-     <div id="result">
+<div class="container details">
+Enter USN to fetch details: <input type="text" name="USN" id="USN">
+<div id="modal-content">
+	<span class="close" onclick="closeform()">&times;</span>
+	<div id="result"></div>
+</div>
+<input type="button" name="getDetails" value="search" onclick="getDetails()"><br>
+</div>
 
-     </div>
-    <input type="button" name="getDetails" value="search" onclick="getDetails()">
-    <br>
-  </div>
 
   <!--Footer-->
   <footer id="footer" class="footer">

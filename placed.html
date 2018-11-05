@@ -257,7 +257,7 @@
 			company=document.getElementById('company').value;
 			fte=document.getElementById('fte').checked;
 			intern=document.getElementById('intern').checked;
-			$.post("server/company.php",
+			$.post("https://ppdb-ep.herokuapp.com/placement",
 			{
 				"usn":usn,
 				"company":company,
@@ -302,6 +302,7 @@
 			</div>
 		  </div>
 		</nav>
+		<!--/ Navigation bar-->
 
 	<table border="0" cellpadding="0">
 	<tr>
