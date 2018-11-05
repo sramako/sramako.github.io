@@ -28,8 +28,8 @@ function login(x,y) {
 					"password": y
 	},
 	function (data) {
-		console.log(data);
-		if(data) {
+		console.log("+"+JSON.stringify(data)+"+");
+		if(data["status"]=="success") {
 			console.log("Login Success");
 			setCookie("login", "true", 1);
 			setCookie("user", x, 1);
