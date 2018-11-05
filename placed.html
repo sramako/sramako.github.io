@@ -266,7 +266,7 @@
 			},
 			function (data) {
 				console.log("+"+JSON.stringify(data));
-				if(data) {
+				if(data["status"]=="success") {
 					console.log("Details Updated");
 					// document.getElementById('form').style.visibility="hidden";
 					document.getElementById('form').style.display = "none";
