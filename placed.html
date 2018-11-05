@@ -202,10 +202,18 @@
 			if(q.length>0) {
 				for( var i=0; i<s; i++ )
 				{
-					if(names[i].startsWith(q))
-					{
-						res.push(i);
-					}
+					if(query_type=="name") {
+  					  if(names[i].startsWith(q))
+  					  {
+  						  res.push(i);
+  					  }
+  				  }
+  				  else {
+  				  		if(names[i].includes(q))
+  						{
+  							res.push(i);
+  						}
+  				  }
 				}
 				showResult(res);
 			}
@@ -326,7 +334,7 @@
 
 	<table border="0" cellpadding="0">
 	<tr>
-			<td id="searchname"><h2>Name</h2></td>
+			<td id="searchname" onclick="query_swap()"><h2>Name</h2></td>
 			<td id="scont"><input type="text" id="search" onkeyup="predict()"/></td>
 	</tr>
 	<tr>
