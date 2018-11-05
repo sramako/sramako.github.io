@@ -38,7 +38,7 @@ function login(x,y) {
 		else {
 			console.log("Login Failed");
 			setCookie("login", "false", 1);
-			swal("Wrong Credentials");
+			swal("Wrong Credentials","error");
 			return "false";
 		}
 	})}
@@ -50,7 +50,7 @@ function login(x,y) {
 		console.log(u);
 		if(c!="true") {
 			window.stop();
-			swal("You're not logged in!");
+			swal("You're not logged in!","error");
 			window.location.href="employee_login.html";
 			return false;
 		}
