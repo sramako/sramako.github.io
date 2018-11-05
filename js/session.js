@@ -22,7 +22,7 @@ function getCookie(cname) {
 
 function login(x,y) {
 	// $.post("server/login.php",
-	$.post("http://ppdb-ep.herokuapp.com/emplogin",
+	$.post("https://ppdb-ep.herokuapp.com/emplogin",
 	{
 					"username": x,
 					"password": y

@@ -85,7 +85,7 @@ app.controller('myCtrl', function($scope) {
                 });
         }
 
-		$.getJSON('http://ppdb-ep.herokuapp.com/compdata', function(data) {
+		$.getJSON('https://ppdb-ep.herokuapp.com/compdata', function(data) {
 			console.log(Object.values(data));
 			// $scope.events=Object.values(data);
 			var ret = new Array();

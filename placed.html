@@ -128,14 +128,14 @@
 		    x.add(option);
 		}
 
-		var myURL = "http://ppdb-ep.herokuapp.com/formdata";
+		var myURL = "https://ppdb-ep.herokuapp.com/formdata";
 		$.getJSON( myURL, function(data) {
 			psdata = data;
 			console.log(data);
 			show();
 		});
 
-		$.getJSON('http://ppdb-ep.herokuapp.com/compdata', function(data) {
+		$.getJSON('https://ppdb-ep.herokuapp.com/compdata', function(data) {
 			var comp=Object.values(data);
 			for( i in comp ) {
 				if(comp[i].Company) {
