@@ -50,6 +50,7 @@
 		width: 99%;
 		line-height:50px;
 		padding-left: 10px;
+		text-transform:uppercase;
 	}
 	#searchname {
 		text-align:center;
@@ -198,7 +199,7 @@
 		}
 
 		predict=function() {
-			var q = $('#search').val();
+			var q = $('#search').val().toUpperCase();
 			console.log(q);
 			var res = new Array();
 			var s = names.length;
