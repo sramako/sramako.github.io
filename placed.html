@@ -121,6 +121,21 @@
 	<script>
 		psdata = new Object();
 		names = new Array();
+		query_type="name";
+
+		query_swap=function() {
+  		  if(query_type=="name")
+  		  {
+  			  query_type="usn";
+  			  $("h2").text("USN");
+  			  show();
+  		  }
+  		  else {
+  			  query_type="name";
+  			  $("h2").text("Name");
+  			  show();
+  		  }
+  	  }
 
 		function addcompany(s) {
 		    var x = document.getElementById("company");
@@ -168,13 +183,13 @@
 
 		show = function() {
 
-			console.log(psdata);
+			// console.log(psdata);
 			s = psdata.length;
-			for( var i=0; i<s; i++ )
-			{
-				names.push(psdata[i].name);
-			}
-			console.log(names);
+			if(query_type=="name")
+			  names.push(psdata[i].name); //NAME
+			else
+			  names.push(psdata[i].usn);
+			// console.log(names);
 			//LOAD COMPLETE
 		}
 
@@ -261,8 +276,8 @@
 			{
 				"usn":usn,
 				"company":company,
-				"fte":fte,
-				"intern":intern
+				"FTE":fte,
+				"Internship":intern
 			},
 			function (data) {
 				console.log("+"+JSON.stringify(data));
