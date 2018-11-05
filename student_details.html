@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Student Details</title>
+  <meta name="description" content="Free Bootstrap Theme by BootstrapMade.com">
+  <meta name="keywords" content="free website templates, free bootstrap themes, free template, free bootstrap, free website template">
+
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans|Candal|Alegreya+Sans">
+  <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/imagehover.min.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <script src="js/session.js"></script>
+  <script>
+  u=check_login();
+  function test()
+  {
+  	$("#profile").text("Welcome, "+u);
+  }
+  </script>
+</head>
+
+<body onload="test()">
+	<!--Navigation bar-->
+    <nav class="navbar navbar-default navbar-fixed-top" >
+  	<div class="container">
+  	  <div class="navbar-header">
+  		<a class="navbar-brand" href="announcements.html">PESU Placement</a>
+  	  </div>
+  	  <div class="collapse navbar-collapse" id="myNavbar">
+  		<ul class="nav navbar-nav navbar-right">
+  			<li><a href="formbuilder.html">Add Company</a></li>
+  			<li><a href="placed.html">Update Status</a></li>
+  		  <!-- <li>
+		  <a href="student_details.html">Student Details</a></li> -->
+  		  <li><a><div id="profile" style="color:black"></div></a></li>
+  		</ul>
+  		<a id="user" onclick="signout()" class="btn btn btn-danger btn-lg" style="color:white;position:absolute;top:5px;bottom:5px;right:5px">
+  			<i class="fa fa-sign-out" style="color:white"></i>
+  			<span id="uname">Log out</span>
+  		</a>
+  	  </div>
+  	</div>
+    </nav>
+  <!--/ Navigation bar-->
+
+  <div class="container details">
+    Enter USN to fetch details: <input type="text" name="USN" id="USN">
+     <div id="result">
+
+     </div>
+    <input type="button" name="getDetails" value="search" onclick="getDetails()">
+    <br>
+  </div>
+
+  <!--Footer-->
+  <footer id="footer" class="footer">
+    <div class="container text-center footer">
+      <!-- End newsletter-form -->
+      <ul class="social-links">
+        <li><a href="#link"><i class="fa fa-twitter fa-fw"></i></a></li>
+        <li><a href="#link"><i class="fa fa-facebook fa-fw"></i></a></li>
+        <li><a href="#link"><i class="fa fa-google-plus fa-fw"></i></a></li>
+        <li><a href="#link"><i class="fa fa-dribbble fa-fw"></i></a></li>
+        <li><a href="#link"><i class="fa fa-linkedin fa-fw"></i></a></li>
+      </ul>
+      ©PESU Placement. All rights reserved
+      <div class="credits">
+        Designed by <a href="https://bootstrapmade.com/">students of PESU</a>
+      </div>
+    </div>
+  </footer>
+  <!--/ Footer-->
+
+  <script src="js/jquery.min.js"></script>
+  <script src="js/jquery.easing.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/custom.js"></script>
+  <script src="contactform/contactform.js"></script>
+
+  <script type="text/javascript">
+    var p = document.getElementById("result");
+
+    var s = document.getElementById("USN");
+
+    function getDetails(){
+      //psdata = new Object();
+      var myURL = "https://ppdb-ep.herokuapp.com/formdata";
+      $.getJSON(myURL, function(data){
+          var tf = 0;
+          for(i=0;i<data.length;i++){
+            if(data[i].usn==s.value){
+              console.log(data[i].usn+" "+data[i].name+" "+data[i].email);
+              //p.innerHTML = data[i].usn+" "+data[i].name+" "+data[i].email+" "+data[i].score_gpa+" "+data[i].intern_status+" "+data[i].fte_status+" "+data[i].blacklisted
+              var usn = document.createElement('div');
+              var name = document.createElement('div');
+              var email = document.createElement('div');
+              var gpa = document.createElement('div');
+              var intern_status = document.createElement('div');
+              var fte_status = document.createElement('div');
+              var blacklisted = document.createElement('div');
+              p.appendChild(usn);
+              p.appendChild(name);
+              p.appendChild(email);
+              p.appendChild(gpa);
+              p.appendChild(intern_status);
+              p.appendChild(fte_status);
+              p.appendChild(blacklisted);
+              usn.innerHTML += "USN: " + data[i].usn + " ";
+              usn.innerHTML += "Name: " + data[i].name + " ";
+              usn.innerHTML += "Email: " + data[i].email + " ";
+              usn.innerHTML += "GPA: " + data[i].gpa + " ";
+              usn.innerHTML += "Intern Status: " + data[i].intern_status + " ";
+              usn.innerHTML += "FTE Status: " + data[i].fte_status + " ";
+              usn.innerHTML += "Blacklisted: " + data[i].blacklisted + " ";
+              tf = 1;
+              break;
+            }
+          }
+          if(tf==0){
+            p.innerHTML = "Student not found";
+          }
+      });
+    }
+
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,353 @@
+<html>
+<head>
+
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PESU Placement</title>
+    <meta name="description" content="Free Bootstrap Theme by BootstrapMade.com">
+    <meta name="keywords" content="free website templates, free bootstrap themes, free template, free bootstrap, free website template">
+
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans|Candal|Alegreya+Sans">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/imagehover.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
+	<style>
+	#container{
+		border:solid 1px black;
+		display:none;
+		max-height: 100px;
+		overflow: auto;
+		max-width: 100%;
+		padding-left: 10px;
+		padding-top: 10px;
+	}
+	.sitem{
+		background-color:white;
+		color:black;
+		padding-left: 5px;
+		padding-top: 2px;
+		padding-bottom: 2px;
+	}
+	.sitem:hover{
+		background-color:gray;
+		color:white;
+	}
+	table {
+		position: absolute;
+		top:25%;
+		align:center;
+		left: 0;
+		right: 50px;
+		margin-left: auto;
+		margin-right: auto;
+		width: 70%;
+	}
+	#search {
+		align:center;
+		width: 99%;
+		line-height:50px;
+		padding-left: 10px;
+	}
+	#searchname {
+		text-align:center;
+		width:150px;
+		background:#512DA8;
+	}
+
+	td {
+		overflow: hidden;
+		white-space: nowrap;
+	}
+
+	#scont {
+		background:#9575CD;
+	}
+	h2 {
+		color:white;
+	}
+
+	#form {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: white; /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 20%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+	</style>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/angular.min.js"></script>
+	<script src="js/session.js"></script>
+	<script>
+	u=check_login();
+	function test()
+	{
+		$("#profile").text("Welcome, "+u);
+	}
+	</script>
+	<script>
+		psdata = new Object();
+		names = new Array();
+
+		function addcompany(s) {
+		    var x = document.getElementById("company");
+		    var option = document.createElement("option");
+		    option.text = s;
+		    x.add(option);
+		}
+
+		var myURL = "http://ppdb-ep.herokuapp.com/formdata";
+		$.getJSON( myURL, function(data) {
+			psdata = data;
+			console.log(data);
+			show();
+		});
+
+		$.getJSON('http://ppdb-ep.herokuapp.com/compdata', function(data) {
+			var comp=Object.values(data);
+			for( i in comp ) {
+				if(comp[i].Company) {
+					//$scope.companies.push(comp[i].Company);
+					addcompany(comp[i].Company);
+				}
+			}
+		});
+
+		// Get the modal
+		var modal = document.getElementById('form');
+
+		// Get the <span> element that closes the modal
+		var span = document.getElementsByClassName("close");
+
+		// When the user clicks on <span> (x), close the modal
+		closeform = function() {
+			console.log("CLOSE");
+			document.getElementById('form').style.display = "none";
+		}
+
+		// When the user clicks anywhere outside of the modal, close it
+		window.onclick = function(event) {
+			console.log("Stray Click");
+			if (event.target == form) {
+				document.getElementById('form').style.display = "none";
+			}
+		}
+
+		show = function() {
+
+			console.log(psdata);
+			s = psdata.length;
+			for( var i=0; i<s; i++ )
+			{
+				names.push(psdata[i].name);
+			}
+			console.log(names);
+			//LOAD COMPLETE
+		}
+
+		predict=function() {
+			var q = $('#search').val();
+			console.log(q);
+			var res = new Array();
+			var s = names.length;
+			console.log("Size"+q.length);
+			if(q.length>0) {
+				for( var i=0; i<s; i++ )
+				{
+					if(names[i].startsWith(q))
+					{
+						res.push(i);
+					}
+				}
+				showResult(res);
+			}
+			else {
+				search.style.backgroundColor="white";
+				container.style.visibility="hidden";
+				console.log("HIDDEN"+container.style.visibility);
+			}
+		}
+
+		setName=function(e)
+		{
+			var str=e.target.innerHTML;
+			document.getElementById("search").value=str;
+			var i = names.indexOf(str);
+			console.log(i+" : "+psdata[i].usn);
+			document.getElementById("NAME").innerHTML=psdata[i].name;
+			document.getElementById("USN").innerHTML=psdata[i].usn;
+			document.getElementById("EMAIL").innerHTML=psdata[i].email;
+			container.style.visibility="hidden";
+			//document.getElementById('form').style.visibility="visible";
+			document.getElementById('form').style.display = "block";
+		}
+
+		showResult=function(res)
+		{
+			console.log("Show Result called");
+			search = document.getElementById("search");
+			container = document.getElementById("container");
+
+			console.log("RES="+res);
+
+			if(res.length==0)
+			{
+				container.innerHTML='';
+				search.style.backgroundColor="red";
+				container.style.visibility="hidden";
+			}
+			else
+			{
+				container.innerHTML='';
+				container.style.visibility="visible";
+				for(f in res)
+				{
+					console.log("populating");
+					search.style.backgroundColor="white";
+					itemDiv=document.createElement("div");
+					itemDiv.className="sitem";
+					itemDiv.innerHTML=names[res[f]];
+					container.appendChild(itemDiv);
+					itemDiv.onclick=setName;
+				}
+			}
+			container.style.display="block";
+		}
+
+		gather = function() {
+			var company=document.getElementById('company');
+			console.log(company);
+		}
+
+		function submit() {
+			usn=document.getElementById('USN').innerHTML;
+			company=document.getElementById('company').value;
+			fte=document.getElementById('fte').checked;
+			intern=document.getElementById('intern').checked;
+			$.post("server/company.php",
+			{
+				"usn":usn,
+				"company":company,
+				"fte":fte,
+				"intern":intern
+			},
+			function (data) {
+				if(data) {
+					console.log("Details Updated");
+					// document.getElementById('form').style.visibility="hidden";
+					document.getElementById('form').style.display = "none";
+					document.getElementById("search").value="";
+					window.alert("Updated");
+				}
+				else {
+					console.log("Failed to update");
+					window.alert("Failed to update");
+				}
+			})}
+
+
+	</script>
+</head>
+<body onload="test();show()">
+		<!--Navigation bar-->
+		<nav class="navbar navbar-default navbar-fixed-top" >
+		  <div class="container">
+			<div class="navbar-header">
+			  <a class="navbar-brand" href="announcements.html">PESU Placement</a>
+			</div>
+			<div class="collapse navbar-collapse" id="myNavbar">
+			  <ul class="nav navbar-nav navbar-right">
+				  <li><a href="formbuilder.html">Add Company</a></li>
+				  <!-- <li><a href="placed.html">Update Status</a></li> -->
+  	            <li><a href="student_details.html">Student Details</a></li>
+				<li><a><div id="profile" style="color:black"></div></a></li>
+			  </ul>
+			  <a id="user" onclick="signout()" class="btn btn btn-danger btn-lg" style="color:white;position:absolute;top:5px;bottom:5px;right:5px">
+				  <i class="fa fa-sign-out" style="color:white"></i>
+				  <span id="uname">Log out</span>
+			  </a>
+			</div>
+		  </div>
+		</nav>
+
+	<table border="0" cellpadding="0">
+	<tr>
+			<td id="searchname"><h2>Name</h2></td>
+			<td id="scont"><input type="text" id="search" onkeyup="predict()"/></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td><div id="container"></div></td>
+	</tr>
+	</table>
+	<div id="form">
+		<div class="modal-content">
+			<span class="close" onclick="closeform()">&times;</span>
+			<div id="NAME"></div>
+			<div id="USN"></div>
+			<div id="EMAIL"></div>
+			<div>
+				Company
+				<select id="company"></select><br>
+				<input type=checkbox id="fte" ng-bind="fte">FTE</input><br>
+				<input type=checkbox id="intern" ng-bind="intern">Internship</input><br>
+				<td><button onclick="submit()">SUBMIT</button></td>
+			</div>
+		</div>
+	</div>
+
+
+
+    <!--Footer-->
+    <footer id="footer" class="footer" style="position:absolute;bottom:0px;width:100%">
+      <div class="container text-center">
+        <!-- End newsletter-form -->
+        <ul class="social-links">
+          <li><a href="#link"><i class="fa fa-twitter fa-fw"></i></a></li>
+          <li><a href="#link"><i class="fa fa-facebook fa-fw"></i></a></li>
+          <li><a href="#link"><i class="fa fa-google-plus fa-fw"></i></a></li>
+          <li><a href="#link"><i class="fa fa-dribbble fa-fw"></i></a></li>
+          <li><a href="#link"><i class="fa fa-linkedin fa-fw"></i></a></li>
+        </ul>
+        ©PESU Placement. All rights reserved
+        <div class="credits">
+          Designed by <a href="https://bootstrapmade.com/">students of PESU</a>
+        </div>
+      </div>
+    </footer>
+    <!--/ Footer-->
+
+</body>
+</html>

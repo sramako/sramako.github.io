@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Student Details</title>
+  <meta name="description" content="Free Bootstrap Theme by BootstrapMade.com">
+  <meta name="keywords" content="free website templates, free bootstrap themes, free template, free bootstrap, free website template">
+
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans|Candal|Alegreya+Sans">
+  <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/imagehover.min.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" href="css/formbuilder.css">
+
+</head>
+
+<html lang="en">
+<script src="js/angular.min.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/formbuilder.js"></script>
+<script src="js/session.js"></script>
+<script>
+u=check_login();
+function test()
+{
+	$("#profile").text("Welcome, "+u);
+}
+</script>
+
+<body onload="test()">
+		<!--Navigation bar-->
+		<nav class="navbar navbar-default navbar-fixed-top" >
+		  <div class="container">
+			<div class="navbar-header">
+			  <a class="navbar-brand" href="announcements.html">PESU Placement</a>
+			</div>
+			<div class="collapse navbar-collapse" id="myNavbar">
+			  <ul class="nav navbar-nav navbar-right">
+				  <!-- <li><a href="formbuilder.html">Add Company</a></li> -->
+				  <li><a href="placed.html">Update Status</a></li>
+  	            <li><a href="student_details.html">Student Details</a></li>
+				<li><a><div id="profile" style="color:black"></div></a></li>
+			  </ul>
+			  <a id="user" onclick="signout()" class="btn btn btn-danger btn-lg" style="color:white;position:absolute;top:5px;bottom:5px;right:5px">
+				  <i class="fa fa-sign-out" style="color:white"></i>
+				  <span id="uname">Log out</span>
+			  </a>
+			</div>
+		  </div>
+		</nav>
+		<!--/ Navigation bar-->
+
+        <div ng-app="myApp" ng-controller="myCtrl">
+				<iframe name="formDestination" style="display:none;position:absolute"></iframe>
+
+                <form target="formDestination" id="preview" action="http://ppdb-ep.herokuapp.com/addnewcomp" method="POST" ng-init="load()">
+				<!-- <form target="formDestination" id="preview" action="server/company.php" method="POST" ng-init="load()"> -->
+                        <button type="submit" id="submit" class="button"><span>PUBLISH</span></button>
+						<div id="0" class="form-element">
+							<h1>Date</h1>
+							<input type=date ng-model="date" name="Date">
+							<br/>
+							<span ng-show="checkdate()">&#9940;</span>
+							<spam>{{date | date}}</spam><br />
+							<spam>{{message}}</spam>
+						</div>
+                </form>
+
+                <form id="postview">
+                    <div><h1>Preview Box</h1></div>
+                </form>
+                <button id="view" class="button" ng-click="reload()"><span>Generate</span></button>
+
+                <div id="create">
+
+                        <button class="open-button" onclick="openSelector()">Add New</button>
+
+                        <div class="form-popup" id="myForm">
+                                <form class="form-mycont" ng-submit="newElement()">
+                                        <h1>New Form Element</h1>
+
+                                        <label for="Question"><b>What would you like to ask?</b></label>
+                                        <input type="text" placeholder="Enter Field" name="que" ng-model="elem.que" required>
+
+                                        <b>Response Type</b>
+                                        <br /><br />
+                                        <div class="styled-select slate semi-square">
+                                          <select ng-init="elem.res=Text" ng-model="elem.res" ng-options="opt for opt in ['Text','Radio','Checkbox','Date']" required>
+                                            <option></option>
+                                          </select>
+                                        </div>
+                                        <input type="number" min="1" value=1 ng-show="checkMultiple()">
+                                        <br />
+                                        <br />
+
+                                        <button type="submit" class="btn">Add to Form</button>
+                                        <button type="button" class="btn cancel" onclick="closeSelector()">Close</button>
+                                </form>
+                        </div>
+
+                </div>
+
+
+
+        </div>
+
+
+</body>
+
+
+
+</html>
