@@ -12,7 +12,7 @@
 <head>
 
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-	<script src="js/session.js"></script>\
+	<script src="js/session.js"></script>
 	<script>
 	c=getCookie("login");
 	console.log("+"+c+"+");
@@ -27,7 +27,6 @@
 
 
 
-
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0">
 <meta name="description" content="Free Bootstrap Theme by BootstrapMade.com">
@@ -37,7 +36,7 @@
 <link rel="profile" href="http://gmpg.org/xfn/11" />
 <link rel="pingback" href="http://pes.edu/xmlrpc.php" />
 
-
+  
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans|Candal|Alegreya+Sans">
   <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
@@ -99,7 +98,7 @@ img.emoji {
 <script type='text/javascript' src='http://pes.edu/wp-content/themes/university/js/cactus-themes.js?ver=2.1'></script>
 <link rel='https://api.w.org/' href='http://pes.edu/wp-json/' />
 <link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://pes.edu/xmlrpc.php?rsd" />
-<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://pes.edu/wp-includes/wlwmanifest.xml" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://pes.edu/wp-includes/wlwmanifest.xml" /> 
 <meta name="generator" content="WordPress 4.9.8" />
 <link rel="canonical" href="http://pes.edu/announcements/" />
 <link rel='shortlink' href='http://pes.edu/?p=524' />
@@ -203,27 +202,37 @@ img.emoji {
 
 </style><meta name="generator" content="Powered by WPBakery Page Builder - drag and drop page builder for WordPress."/>
 <!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="http://pes.edu/wp-content/plugins/js_composer/assets/css/vc_lte_ie9.min.css" media="screen"><![endif]--><meta name="generator" content="Powered by Slider Revolution 5.4.8 - responsive, Mobile-Friendly Slider Plugin for WordPress with comfortable drag and drop interface." />
-<script src="js/jquery.min.js"></script>
-<script type="text/javascript">function setREVStartSize(e){
+
+	<script src="js/jquery.min.js"></script>
+<script type="text/javascript">function setREVStartSize(e){									
 						try{ e.c=jQuery(e.c);var i=jQuery(window).width(),t=9999,r=0,n=0,l=0,f=0,s=0,h=0;
-							if(e.responsiveLevels&&(jQuery.each(e.responsiveLevels,function(e,f){f>i&&(t=r=f,l=e),i>f&&f>r&&(r=f,n=e)}),t>r&&(l=n)),f=e.gridheight[l]||e.gridheight[0]||e.gridheight,s=e.gridwidth[l]||e.gridwidth[0]||e.gridwidth,h=i/s,h=h>1?1:h,f=Math.round(h*f),"fullscreen"==e.sliderLayout){var u=(e.c.width(),jQuery(window).height());if(void 0!=e.fullScreenOffsetContainer){var c=e.fullScreenOffsetContainer.split(",");if (c) jQuery.each(c,function(e,i){u=jQuery(i).length>0?u-jQuery(i).outerHeight(!0):u}),e.fullScreenOffset.split("%").length>1&&void 0!=e.fullScreenOffset&&e.fullScreenOffset.length>0?u-=jQuery(window).height()*parseInt(e.fullScreenOffset,0)/100:void 0!=e.fullScreenOffset&&e.fullScreenOffset.length>0&&(u-=parseInt(e.fullScreenOffset,0))}f=u}else void 0!=e.minHeight&&f<e.minHeight&&(f=e.minHeight);e.c.closest(".rev_slider_wrapper").css({height:f})
-						}catch(d){console.log("Failure at Presize of Slider:"+d)}
+							if(e.responsiveLevels&&(jQuery.each(e.responsiveLevels,function(e,f){f>i&&(t=r=f,l=e),i>f&&f>r&&(r=f,n=e)}),t>r&&(l=n)),f=e.gridheight[l]||e.gridheight[0]||e.gridheight,s=e.gridwidth[l]||e.gridwidth[0]||e.gridwidth,h=i/s,h=h>1?1:h,f=Math.round(h*f),"fullscreen"==e.sliderLayout){var u=(e.c.width(),jQuery(window).height());if(void 0!=e.fullScreenOffsetContainer){var c=e.fullScreenOffsetContainer.split(",");if (c) jQuery.each(c,function(e,i){u=jQuery(i).length>0?u-jQuery(i).outerHeight(!0):u}),e.fullScreenOffset.split("%").length>1&&void 0!=e.fullScreenOffset&&e.fullScreenOffset.length>0?u-=jQuery(window).height()*parseInt(e.fullScreenOffset,0)/100:void 0!=e.fullScreenOffset&&e.fullScreenOffset.length>0&&(u-=parseInt(e.fullScreenOffset,0))}f=u}else void 0!=e.minHeight&&f<e.minHeight&&(f=e.minHeight);e.c.closest(".rev_slider_wrapper").css({height:f})					
+						}catch(d){console.log("Failure at Presize of Slider:"+d)}						
 					};
+
+
+	
 compdata=new Object();
 var j=5;
-
+		
 		function comp(){
-
-		$.getJSON("https://ppdb-ep.herokuapp.com/compdata",function (obj) {
+		console.log("okay");
+		
+		$.getJSON("http://ppdb-ep.herokuapp.com/compdata",function (obj) {
 		var i;
-		compdata=obj;
-		date(compdata);
+		
+		
+		
+				compdata=obj;
+				console.log(compdata['Last Date to submit']);
+				date(compdata);
+		
+		
 
-
-
+		
         });
 }
-
+	
 
 
 
@@ -233,20 +242,21 @@ var d=new Date();
 var month=d.getMonth();
 var day=d.getDate();
 comp1=document.getElementById("first").innerHTML.split("-");
-if(month>comp1[1])
+
+if(month<comp1[1])
 {
-	update("fourth","fifth");
-	update("third","fourth");
-	update("second","third");
-	update("first","second");
+	update("second","first");
+	update("third","second");
+	update("fourth","third");	
+	update("fifth","fourth");
 	newcompany(compdate);
 }
-else if(day>comp1[2])
+else if(day<comp1[2])
 {
-	update("fourth","fifth");
-	update("third","fourth");
-	update("second","third");
-	update("first","second");
+	update("second","first");
+	update("third","second");
+	update("fourth","third");	
+	update("fifth","fourth");
 	newcompany(compdate);
 }}
 
@@ -256,16 +266,34 @@ function update(first,second)
 	document.getElementById(second).innerHTML=document.getElementById(first).innerHTML;
 	document.getElementById(second+"data").innerHTML=document.getElementById(first+"data").innerHTML;
 	document.getElementById(second+"data").href=document.getElementById(first+"data").href;
-
+	
 }
 
 function newcompany(cd){
 
-document.getElementById("first").innerHTML=cd[j]['Last Date to submit'];
-document.getElementById("firstdata").innerHTML=cd[j].Name;
+document.getElementById("fifth").innerHTML=cd[j]['Last Date to submit'];
+document.getElementById("fifthdata").innerHTML=cd[j].Company;
 j=j+1;
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </script>
 <!-- custom css -->
@@ -352,23 +380,23 @@ j=j+1;
     #main-nav .main-menu.affix .navbar-nav>li:hover>a{
         background:#183f85;
     }
-    .woocommerce a.button, .woocommerce button.button, .woocommerce input.button, .woocommerce #respond input#submit, .woocommerce #content input.button, .woocommerce-page a.button,
-    .woocommerce-page button.button, .woocommerce-page input.button, .woocommerce-page #respond input#submit, .woocommerce-page #content input.button, .woocommerce a.button.alt,
+    .woocommerce a.button, .woocommerce button.button, .woocommerce input.button, .woocommerce #respond input#submit, .woocommerce #content input.button, .woocommerce-page a.button, 	    
+    .woocommerce-page button.button, .woocommerce-page input.button, .woocommerce-page #respond input#submit, .woocommerce-page #content input.button, .woocommerce a.button.alt, 
     .woocommerce button.button.alt, .woocommerce input.button.alt, .woocommerce #respond input#submit.alt, .woocommerce #content input.button.alt, .woocommerce-page a.button.alt,
-    .woocommerce-page button.button.alt, .woocommerce-page input.button.alt, .woocommerce-page #respond input#submit.alt, .woocommerce-page #content input.button.alt,
+    .woocommerce-page button.button.alt, .woocommerce-page input.button.alt, .woocommerce-page #respond input#submit.alt, .woocommerce-page #content input.button.alt, 
     .woocommerce #review_form #respond .form-submit input, .woocommerce-page #review_form #respond .form-submit input{background:#183f85;}
     .thumbnail-overlay {
     	background: rgba(24,63,133,0.8);
     }
-
+    
     .event-default-red ,
     .container.cal-event-list .event-btt:hover,
     #calendar-options .right-options ul li ul li:hover, #calendar-options .right-options ul li ul li:hover a,
     #stm-list-calendar .panel-group .panel .panel-heading .panel-title a.collapsed:hover { background:#183f85 !important;}
-
+    
     .cal-day-weekend span[data-cal-date],
     #cal-slide-content a.event-item:hover, .cal-slide-content a.event-item:hover,
-    .container.cal-event-list .owl-controls .owl-prev:hover i:before,
+    .container.cal-event-list .owl-controls .owl-prev:hover i:before, 
     .container.cal-event-list .close-button:hover i:before,
     #calendar-options a:hover,
     .container.cal-event-list .owl-controls .owl-next:hover i:before,
@@ -406,25 +434,25 @@ h1,h2,h3,h4,h5,h6,.h1,.h2,.h3,.h4,.h5,.h6{
 
 h1, .h1
 {
-font-family: "Montserrat", Times, serif;
-font-size: 28px;
+font-family: "Montserrat", Times, serif; 
+font-size: 28px; 
 }
 
-h2, .h2
+h2, .h2 
 {
-font-family: "Montserrat";
-font-size: 24px;
+font-family: "Montserrat"; 
+font-size: 24px; 
 }
+ 
+  
 
-
-
-h4, .h4
+h4, .h4  
 {
-font-family: "Montserrat";
+font-family: "Montserrat"; 
 
-font-size: 18px;
+font-size: 18px; 
 }
-
+  
 
 h3, .h3 {
     font-size: 1.1em !important;
@@ -438,20 +466,20 @@ h5, .h5 {
     font-weight: 700;
     text-transform: uppercase;
 }
-
+  
 
 h6 , .h6
 {
-font-size: 13px;
-font-family: "Montserrat";
+font-size: 13px; 
+font-family: "Montserrat"; 
 }
+  
 
-
-p
+p 
 {
-font-family: "Roboto",sans-serif;
+font-family: "Roboto",sans-serif; 
 
-font-size: 13px;
+font-size: 13px; 
 }
 
 /*pageloader*/
@@ -473,7 +501,7 @@ font-size: 13px;
 
 /*page heading*/
 
-.page-heading {
+.page-heading {	
   background: #F0C849;
 }
 
@@ -523,7 +551,7 @@ font-size: 13px;
 .front-page-tabs .vc_tta-tabs-list .vc_tta-tab .vc_tta-title-text, .front-page-tabs .vc_tta-panel .vc_tta-panel-heading .vc_tta-panel-title{
     font-weight: 700 !important;
     text-transform: uppercase !important;
-    font-family: "Montserrat", Times, serif;
+    font-family: "Montserrat", Times, serif; 
 }
 .front-page-tabs .vc_tta-tabs-list .vc_tta-tab > a, .front-page-tabs .vc_tta-panel .vc_tta-panel-heading > a{
     background-color: #fff !important;
@@ -535,7 +563,7 @@ font-size: 13px;
 .front-page-tabs .vc_tta-tabs-list .vc_active > a, .front-page-tabs .vc_tta-panel .vc_active > a{
     background-color: #183f85 !important;
     color: #fff !important;
-
+    
 }
 .front-page-tabs .vc_tta-panel .vc_tta-panel-heading{
     text-align: center !important;
@@ -643,7 +671,7 @@ padding-left: 0px;
     color: #000;
     font-weight: 700;
     font-size: 0.9em;
-    font-family: "Montserrat", Times, serif;
+    font-family: "Montserrat", Times, serif; 
 }
 .front-page-tab-icon img, .front-page-icon-hover img{
     max-height: 50px;
@@ -782,7 +810,7 @@ padding-left: 0px;
 .testimonials {
     background: #183F85 !important;
 }
-.testimonial-item:before {
+.testimonial-item:before {	
   display: none;
 }
 
@@ -897,7 +925,7 @@ padding-left: 0px;
 }
 .vc-hoverbox-block-inner h4, .vc-hoverbox-block-inner p, .vc-hoverbox-block-inner a{
     color: #fff !important;
-
+    
 }
 .vc-hoverbox-front-inner h2{
      color: #fff !important;
@@ -941,12 +969,12 @@ width: 100%;
 
 
 
-
-
+ 
+                            	   
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-sm-8">
-					<!--Navigation bar-->
+                    <!--Navigation bar-->
 					<nav class="navbar navbar-default navbar-fixed-top" >
 					  <div class="container">
 						<div class="navbar-header">
@@ -972,9 +1000,9 @@ width: 100%;
 
                 </div>
 </div>
-
+                                
         </div><!--/container-->
-
+   
 
 <!--<div class="top-sidebar">
     <div class="container">
@@ -992,6 +1020,8 @@ width: 100%;
         	<div class="vc_row wpb_row vc_row-fluid"><div class="wpb_column vc_column_container vc_col-sm-12"><div class="vc_column-inner "><div class="wpb_wrapper">
 	<div class="wpb_text_column wpb_content_element " >
 		<div class="wpb_wrapper">
+
+
 			<table>
 <thead>
 <tr>
@@ -1001,23 +1031,23 @@ width: 100%;
 </thead>
 <tbody>
 <tr>
-<td  id="first">2018-11-03</td>
+<td  id="first">2018-11-06</td>
 <td width="90%"><a href="sample.html?company=Whatfix"  rel="noopener" id="firstdata">Whatfix</a></td>
 </tr>
 <tr>
-<td id="second">2018-11-02 </td>
+<td id="second">2018-11-07 </td>
 <td ><a href="sample.html?company=OOMPA"  rel="noopener" id="seconddata"> Citrix</a></td>
 </tr>
 <tr>
-<td id="third">2018-10-30</td>
+<td id="third">2018-11-11</td>
 <td><a href="sample.html?company=LOOMPA"  rel="noopener" id="thirddata"> Goldman Sachs</a></td>
 </tr>
 <tr>
-<td id="fourth">2018-08-07</td>
+<td id="fourth">2018-11-12</td>
 <td><a href="sample.html?company=Whatfix"  rel="noopener" id="fourthdata">Cisco</a></td>
 </tr>
 <tr>
-<td id="fifth">2018-08-06</td>
+<td id="fifth">2018-11-13</td>
 <td><a href="sample.html?company=Whatfix"  rel="noopener" id="fifthdata">Walmart</a></td>
 </tr>
 </tbody>
@@ -1026,14 +1056,14 @@ width: 100%;
 		</div>
 	</div>
 </div></div></div></div>    			</div><!--/u_row-->
-
+	
                         </article>
                     </div><!--/content-->
                                     </div><!--/row-->
                         </div><!--/content-pad-3x-->
                             </div><!--/container-->
             </div><!--/body-->
-
+		
    <!--Footer-->
   <footer id="footer" class="footer">
     <div class="container text-center">
@@ -1059,7 +1089,7 @@ width: 100%;
   <script src="js/bootstrap.min.js"></script>
   <script src="js/custom.js"></script>
   <script src="contactform/contactform.js"></script>
-
+  
 <script type='text/javascript' src='http://pes.edu/wp-content/plugins/u-shortcodes//shortcodes/calendar-js/format-datetime-master/jquery.formatDateTime.min.js?ver=4.9.8'></script>
 <script type='text/javascript' src='http://pes.edu/wp-content/plugins/u-shortcodes//shortcodes/calendar-js/underscore/underscore-min.js?ver=4.9.8'></script>
 <script type='text/javascript' src='http://pes.edu/wp-includes/js/jquery/ui/core.min.js?ver=1.11.4'></script>
@@ -1088,3 +1118,4 @@ var ubermenu_data = {"remove_conflicts":"on","reposition_on_load":"off","intent_
 <script type='text/javascript' src='http://pes.edu/wp-content/plugins/js_composer/assets/js/dist/js_composer_front.min.js?ver=5.5.2'></script>
 </body>
 </html>
+

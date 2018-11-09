@@ -1,93 +1,168 @@
 <!DOCTYPE html>
-<html>
-<style>
-body, html {
-    height: 100%;
-    margin: 0;
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PESU Placement</title>
+  <meta name="description" content="Free Bootstrap Theme by BootstrapMade.com">
+  <meta name="keywords" content="free website templates, free bootstrap themes, free template, free bootstrap, free website template">
+
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans|Candal|Alegreya+Sans">
+  <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/imagehover.min.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+ <link rel="stylesheet" type="text/css" href="css/loginadmin.css">
+
+ <style>
+ body {
+	 font-family: Arial, Helvetica, sans-serif;
+	 color: #F54E4E
+ }
+
+ input {
+	 background-color: darkred;
+	 color: white;
+	 border: 0 solid black;
+	 margin: 0;
+ }
+
+ input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px darkred inset;
 }
 
-.bgimg {
-    background-image: url('img/forestbridge.jpg');
-    height: 100%;
-    background-position: center;
-    background-size: cover;
-    position: relative;
-    color: white;
-    font-family: "Courier New", Courier, monospace;
-    font-size: 25px;
+ /* The Modal (background) */
+ .modal {
+     display: block; /* Hidden by default */
+     position: fixed; /* Stay in place */
+     z-index: 1; /* Sit on top */
+     padding-top: 100px; /* Location of the box */
+     left: 0;
+     top: 0;
+     width: 100%; /* Full width */
+     height: 100%; /* Full height */
+     overflow: auto; /* Enable scroll if needed */
+     background-color: black; /* Fallback color */
+     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+ }
+
+ /* Modal Content */
+ .modal-content {
+     background-color: #888;
+     margin: auto;
+     padding: 20px;
+     border: 0 solid #888;
+     width: 80%;
+	 background-color: #1f1f1f;
+ }
+
+ /* The Close Button */
+ .close {
+     color: #aaaaaa;
+     float: right;
+     font-size: 28px;
+     font-weight: bold;
+ }
+
+ .close:hover,
+ .close:focus {
+     color: #000;
+     text-decoration: none;
+     cursor: pointer;
+ }
+ h1, h2, h3, h4, h5, h6 label{
+
+    font-family: Open Sans, sans-serif;
+    font-weight: 700;
+    color: #F54E4E;
+
 }
+ </style>
 
-.topleft {
-    position: absolute;
-    top: 0;
-    left: 16px;
-}
-
-.bottomleft {
-    position: absolute;
-    bottom: 0;
-    left: 16px;
-}
-
-.middle {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-}
-
-hr {
-    margin: auto;
-    width: 40%;
-}
-</style>
-<body>
-
-<div class="bgimg">
-  <div class="topleft">
-    <p>PES Placement Administrator</p>
-  </div>
-  <div class="middle">
-    <h1>COMING SOON</h1>
-    <hr>
-    <p id="demo" style="font-size:30px"></p>
-  </div>
-  <div class="bottomleft">
-    <p><a href="employee_login.html" style="color:white">BACK TO HOMEPAGE</a></p>
-  </div>
-</div>
-
+<script src="js/jquery.min.js"></script>
+<script src="js/angular.min.js"></script>
+<script src="js/session.js"></script>
 <script>
-// Set the date we're counting down to
-var countDownDate = new Date("Nov 8, 2018 23:59:59").getTime();
 
-// Update the count down every 1 second
-var countdownfunction = setInterval(function() {
 
-    // Get todays date and time
-    var now = new Date().getTime();
+	// c=getCookie("login");
+	// console.log("HI"+c);
+	// if(c=="true")
+	// {
+	// 	console.log("REDIRECT");
+	// 	window.location.href="newemp.html";
+	// }
 
-    // Find the distance between now an the count down date
-    var distance = countDownDate - now;
+	var app = angular.module('myApp', []);
+	app.controller('myCtrl', function($scope) {
+		$scope.act=function() {
+			//login($scope.emp,$scope.pwd);
+			window.location.href="newemp.html";
+		}
+	})
 
-    // Time calculations for days, hours, minutes and seconds
-    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    // Output the result in an element with id="demo"
-    document.getElementById("demo").innerHTML = days + "d " + hours + "h "
-    + minutes + "m " + seconds + "s ";
-
-    // If the count down is over, write some text
-    if (distance < 0) {
-        clearInterval(countdownfunction);
-        document.getElementById("demo").innerHTML = "EXPIRED";
-    }
-}, 1000);
 </script>
+</head>
+
+<body ng-app="myApp" ng-controller="myCtrl">
+
+	<!--Navigation bar-->
+    <nav class="navbar navbar-default navbar-fixed-top" style="background-color:#050505;position:relative;border: 0;" >
+  	<div class="container">
+  	  <div class="navbar-header">
+  		<a class="navbar-brand" style="color:#d32f2f;" href="announcements.html">PESU Placement - &#9819 ADMINISTRATOR
+		</a>
+  	  </div>
+  	  <div class="collapse navbar-collapse" id="myNavbar">
+  		<ul class="nav navbar-nav navbar-right">
+  			<!-- <li><a href="formbuilder.html">Add Company</a></li> -->
+  			<!-- <li><a href="placed.html">Update Status</a></li> -->
+  		  <li><a href="employee_login.html">Employee Login</a></li>
+  		  <!-- <li><a><div id="profile" style="color:black"></div></a></li> -->
+  		</ul>
+  	  </div>
+  	</div>
+    </nav>
+    <!--/ Navigation bar-->
+
+ <br/>
+ <br/>
+ <br/>
+ <br/>
+
+<div id="myModal" class="modal">
+<form class="modal-content">
+	<center><h2>Employee Login</h2></center>
+  <div class="container">
+    <label for="uname"><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" name="uname" ng-model="emp" required>
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="psw" ng-model="pwd" required>
+
+    <center><button ng-click="act()">Login</button></center>
+  <br/>
+</div>
+</form>
+</div>
+<!--Footer-->
+<footer id="footer" class="footer" style="position:absolute;bottom:0;left:0;right:0;" >
+	<div class="container text-center">
+		<!-- End newsletter-form -->
+		<ul class="social-links">
+			<li><a href="#link"><i class="fa fa-twitter fa-fw"></i></a></li>
+			<li><a href="#link"><i class="fa fa-facebook fa-fw"></i></a></li>
+			<li><a href="#link"><i class="fa fa-google-plus fa-fw"></i></a></li>
+			<li><a href="#link"><i class="fa fa-dribbble fa-fw"></i></a></li>
+			<li><a href="#link"><i class="fa fa-linkedin fa-fw"></i></a></li>
+		</ul>
+		©PESU Placement. All rights reserved
+		<div class="credits">
+			Designed by <a href="https://bootstrapmade.com/">students of PESU</a>
+		</div>
+	</div>
+</footer>
+<!--/ Footer-->
 
 </body>
 </html>

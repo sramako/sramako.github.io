@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="css/imagehover.min.css">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<link rel="stylesheet" type="text/css" href="css/emplist.css">
+		<script src="js/angular.min.js"></script>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/formbuilder.js"></script>
+		<script src="js/session.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.29.0/sweetalert2.all.js"></script>
+		<script>
+			$.get("http://ppdb-ep.herokuapp.com/listemp", function(data) {
+				console.log(data);
+				size=data.length;
+				for( var i=0; i<size; i++ ) {
+					$("#myList").append("<li>"+data[i]["username"]+"</li>");
+				}
+				// reload();
+				// Increments the delay on each item.
+				$('.rolldown-list li').each(function () {
+					var delay = ($(this).index() / 4) + 's';
+					$(this).css({
+						webkitAnimationDelay: delay,
+						mozAnimationDelay: delay,
+						animationDelay: delay
+					});
+				});
+
+				// Get the modal
+				modal = document.getElementById('myModal');
+
+				// Get the <span> element that closes the modal
+				span = document.getElementsByClassName("close")[0];
+
+				// When the user clicks on <span> (x), close the modal
+				span.onclick = function() {
+				    modal.style.display = "none";
+				}
+			}
+			)
+
+			reload=function () {
+			  $('#myList').removeClass('rolldown-list');
+			  setTimeout(function () {
+			    $('#myList').addClass('rolldown-list');
+			  }, 1);
+			}
+
+			add=function () {
+				// x="testuser";
+				// y="1234";
+				x=$("#username").val();
+				y=$("#pass1").val();
+				z=$("#pass2").val();
+				console.log(x);
+				console.log(y);
+				console.log(z);
+				if(y!=z) {
+					swal({
+					  type: 'error',
+					  title: 'Password Mismatch!',
+					  text: 'Please try again!',
+					  footer: '<a href>Cancel and go to Admin Page!</a>'
+					})
+				}
+				else {
+					$.post("http://ppdb-ep.herokuapp.com/addemp",
+					{
+						"username":x,
+						"password":y,
+						"isAdmin":"true"
+					},
+					function(data) {
+						console.log(JSON.stringify(data));
+						reload();
+						$("#myList").append("<li>"+x+"</li>");
+					}
+					)
+					modal.style.display = "none";
+				}
+			}
+
+
+			// When the user clicks the button, open the modal
+			openmodal = function() {
+			    modal.style.display = "block";
+			}
+
+
+			// When the user clicks anywhere outside of the modal, close it
+			window.onclick = function(event) {
+			    if (event.target == modal) {
+			        modal.style.display = "none";
+			    }
+			}
+		</script>
+
+	</head>
+	<body>
+		<!--Navigation bar-->
+		<nav class="navbar navbar-default navbar-fixed-top" style="background-color:#050505;position:relative;border: 0;" >
+		  <div class="container">
+			<div class="navbar-header">
+			  <a class="navbar-brand" style="color:#d32f2f;" href="announcements.html">PESU Placement - &#9819 ADMINISTRATOR</a>
+			</div>
+			<div class="collapse navbar-collapse" id="myNavbar">
+			  <ul class="nav navbar-nav navbar-right">
+				  <!-- <li><a href="formbuilder.html">Add Company</a></li> -->
+				  <!-- <li><a href="placed.html">Update Status</a></li> -->
+  	            <li><a href="block.html">Block Student</a></li>
+				<li><a><div id="profile" style="color:black"></div></a></li>
+			  </ul>
+			  <a id="user" onclick="signout()" class="btn btn btn-danger btn-lg" style="color:#eee;position:absolute;top:5px;bottom:5px;right:5px">
+				  <i class="fa fa-sign-out" style="color:white"></i>
+				  <span id="uname">Log out</span>
+			  </a>
+			</div>
+		  </div>
+		</nav>
+		<!--/ Navigation bar-->
+
+	<div>
+	<ul class="rolldown-list" id="myList">
+		<li><h2 style="color:white;">Employees</h2></li>
+	</ul>
+
+	<button id="btnReload">Reload</button>
+
+	<div id="mybutton">
+		<button id="addBtn" class="btn btn-lg btn-danger" onclick="openmodal()"><i class="fa fa-plus"></i></button>
+	</div>
+	</div>
+
+	<!-- The Modal -->
+	<div id="myModal" class="modal">
+	  <!-- Modal content -->
+	  <div class="modal-content" align="left">
+	    <span class="close">&times;</span>
+
+		<form>
+			<label for="username">Username</label>
+			<input type="text" id="username" name="username" value="NewAdmin">
+			<label for="pass1">Password</label>
+			<input type="password" id="pass1" name="pass1" value="admin">
+			<br/><br/>
+			<label for="pass2">Password</label>
+			<input type="password" id="pass2" name="pass2" value="admin">
+			<br/><br/>
+			<input type="button" value="Add" onclick="add()">
+		</form>
+
+	  </div>
+	</div>
+
+
+
+	<!--Footer-->
+    <footer id="footer" class="footer" style="position:absolute;bottom:0px;width:100%">
+      <div class="container text-center">
+        <!-- End newsletter-form -->
+        <ul class="social-links">
+          <li><a href="#link"><i class="fa fa-twitter fa-fw"></i></a></li>
+          <li><a href="#link"><i class="fa fa-facebook fa-fw"></i></a></li>
+          <li><a href="#link"><i class="fa fa-google-plus fa-fw"></i></a></li>
+          <li><a href="#link"><i class="fa fa-dribbble fa-fw"></i></a></li>
+          <li><a href="#link"><i class="fa fa-linkedin fa-fw"></i></a></li>
+        </ul>
+        ©PESU Placement. All rights reserved
+        <div class="credits">
+          Designed by <a href="https://bootstrapmade.com/">students of PESU</a>
+        </div>
+      </div>
+    </footer>
+    <!--/ Footer-->
+
+	</body>
+</html>
