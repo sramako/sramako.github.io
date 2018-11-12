@@ -200,6 +200,7 @@ app.controller('myCtrl', function($scope) {
 				}
 			}
 			$scope.events=ret;
+			load2();
 		});
 
         $scope.create = function() {
@@ -332,6 +333,5 @@ app.controller('myCtrl', function($scope) {
 			 $("#disable").hide();
 		 	$("#submit").hide();
 			$("#close").hide();
-			load2();
 		 }
 });
