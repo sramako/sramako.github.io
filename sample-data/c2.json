@@ -1,12 +1,5 @@
 {
-	"Company": [{"type":"Text"}],
-	"Address": [{"type":"Text"}],
-	"Branch": [{"type":"Checkbox"},{"values":["CSE","ISE","ECE"]}],
-	"FTE/Internship": [{"type":"Radio"},{"values":["FTE+Internship","FTE"]}],
-	"Last Date to submit": [{"type":"Date"}],
-	"CTC": [{"type":"Text"}],
-	"Job Description": [{"type":"Text"}],
-	"Eligibilty": [{"type":"Text"}],
-	"Online Test Platform": [{"type":"Text"}],
-	"Number of Rounds": [{"type":"Text"}]	
+        "Name": [{"type":"Text"}],
+        "GPA": [{"type":"Text"}],
+		"Date of Birth": [{"type":"Date"}]
 }
