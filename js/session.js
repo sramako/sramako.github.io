@@ -40,7 +40,7 @@ function login(x,y) {
 			console.log("Login Success");
 			setCookie("login", "true", 1);
 			setCookie("user", x, 1);
-			window.location.href="announcements.html";
+			//window.location.href="announcements.html";
 		}
 		else {
 			console.log("Login Failed");
