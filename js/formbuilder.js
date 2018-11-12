@@ -134,7 +134,7 @@ createStudentForm = function() {
 	function(data) {
 		console.log(JSON.stringify(data));
 		swal("Form Sent!");
-		window.location.href = "announcements.html"
+		// window.location.href = "announcements.html"
 	});
 }
 
