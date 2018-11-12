@@ -5,10 +5,11 @@
   border: none;
   cursor: pointer;
   opacity: 0.8;
-  position: fixed;
+  position: absolute;
   bottom: 23px;
   right: 28px;
   width: 280px;
+  z-index: 1;
 }
 /* signout */
 .x {
@@ -202,36 +203,45 @@ select#soflow-color {
 form#preview {
   padding-top: 40px;
   padding-left: 40px;
+  position: fixed;
   width: 45%;
   float: left;
   display:block;
   border: 1px solid #AAA;
   overflow-y: scroll;
-  position: fixed;
   top:80px;
   left:20px;
   bottom:20px;
 }
 
 form#postview {
+  padding-top: 40px;
   padding-left: 40px;
-  padding-top:20px;
   padding-bottom: 20px;
   position: absolute;
   width: 45%;
-  min-height: 200px;
   float: right;
   display:block;
   border: 1px solid #AAA;
+  overflow-y: hidden;
   right:20px;
-  top: 25%;
-  z-index:-1;
+  top: 80px;
+  bottom:20px;
 }
 
 #view{
   position: fixed;
-  right:5%;
-  top: 35%;
+  left:5%;
+  bottom: 5%;
+  z-index: 1;
+}
+
+#view2{
+  position: fixed;
+  right:2%;
+  top: 12%;
+  z-index: 1;
+  display: none;
 }
 
 ::-webkit-scrollbar {
@@ -251,18 +261,20 @@ form#postview {
 }
 
 #submit.button{
-    position: absolute;
+    position: relative;
     background-color: #555;
     color: white;
     padding: 16px 20px;
     border: none;
     cursor: pointer;
     opacity: 0.8;
-    position: fixed;
+	left: 40%;
+    /* position: fixed;
     bottom: 80px;
-    right: 25px;
-    width: 280px;
-	z-index: 10;
+    right: 25px; */
+    width: 250px;
+	float: center;
+	/* z-index: 10; */
 }
 #submit.button:hover {
   background-color: #0074D9;
@@ -328,4 +340,57 @@ input[type=text], select {
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+}
+
+#modal {
+display: none; /* Hidden by default */
+position: absolute; /* Stay in place */
+z-index: 200; /* Sit on top */
+padding-top: 100px; /* Location of the box */
+left: 0;
+top: 0;
+width: 100%; /* Full width */
+height: 100%; /* Full height */
+overflow: auto; /* Enable scroll if needed */
+background-color: white; /* Fallback color */
+background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+background-color: #fefefe;
+margin: auto;
+padding: 20px;
+border: 1px solid #888;
+width: 80%;
+z-index:101;
+}
+
+/* The Close Button */
+.close {
+color: #aaaaaa;
+float: right;
+font-size: 28px;
+font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+color: #000;
+text-decoration: none;
+cursor: pointer;
+}
+
+#disable {
+display: block; /* Hidden by default */
+position: absolute; /* Stay in place */
+z-index: 1; /* Sit on top */
+padding-top: 100px; /* Location of the box */
+left: 0;
+top: 0;
+width: 100%; /* Full width */
+height: 100%; /* Full height */
+overflow: auto; /* Enable scroll if needed */
+background-color: white; /* Fallback color */
+background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
