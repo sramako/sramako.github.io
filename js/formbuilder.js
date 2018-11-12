@@ -1,4 +1,21 @@
-options = new Object();
+//MODAL
+
+// Get the modal
+var modal = document.getElementById('modal');
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close");
+
+// When the user clicks on <span> (x), close the modal
+closeform = function() {
+	console.log("CLOSE");
+	$("#view").show();
+	document.getElementById('modal').style.display = "none";
+	document.getElementById("search").value="";
+}
+
+
+//ADD ELEMENT
 
 function openSelector() {
         document.getElementById("myForm").style.display = "block";
@@ -7,6 +24,8 @@ function openSelector() {
 function closeSelector() {
         document.getElementById("myForm").style.display = "none";
 }
+
+//GENERATE A PREVIEW
 
 function getFormData($form){
     var unindexed_array = $form.serializeArray();
@@ -25,8 +44,13 @@ function getFormData($form){
     return indexed_array;
 }
 
+options = new Object();
+studentForm = new Object();
 formData = new Array();
 q = new Array();
+qs = new Array();
+appState = 0;
+companyName = "";
 
 addElement = function( count, que, res ) {
         var element = angular.element("<div id="+count+"  class=form-element >"+"</div>");
@@ -59,6 +83,60 @@ addElement = function( count, que, res ) {
         //PARSE OTHER TYPES
 }
 
+addStudentElement = function( count, que, res ) {
+        var element = angular.element("<div id="+count+"  class=form-element >"+"</div>");
+        var target = document.getElementById('postview');
+        angular.element(target).append(element);
+
+        $("#"+count).append("<h1>"+que+"</h1>");
+        qs[count-1] = que;
+		console.log(qs);
+
+        if(res=="Text"){
+                // $("#preview").append("<input type=\"text\" ng-model=\"e.q"+count+"\"/>");
+                $("#"+count).append("<input type=\"text\" ng-model=\"e.q"+count+"\" name=\""+que+"\"></html>");
+				studentForm[que] = new Array(new Object({"type":res}));
+        }
+        if(res=="Radio"){
+                var optlen = options.length;
+                for (var i = 0; i < optlen; i++) {
+                    $("#"+count).append("<input type=radio name=\"" + que + "\" value=\"" + options[i] + "\">"+options[i]+"</h1><br />");
+                }
+				studentForm[que] = new Array(new Object({"type":res}),new Object({"values":options}));
+        }
+		if(res=="Checkbox"){
+				qs[count-1] = que+"[]";
+                var optlen = options.length;
+                for (var i = 0; i < optlen; i++) {
+                    $("#"+count).append("<input type=checkbox name=\"" + que + "[]\" value=\"" + options[i] + "\">"+options[i]+"</h1><br />");
+                }
+				 studentForm[que] = new Array(new Object({"type":res}), new Object({"values":options}));
+        }
+		if(res=="Date"){
+                // $("#preview").append("<input type=\"text\" ng-model=\"e.q"+count+"\"/>");
+                $("#"+count).append("<input type=\"date\" name=\""+que+"\"></html>");
+				studentForm[que] = new Array(new Object({"type":res}));
+        }
+        //PARSE OTHER TYPES
+
+		console.log(JSON.stringify(studentForm));
+
+}
+
+createStudentForm = function() {
+	alert("CAught");
+	$.post("https://ppdb-ep.herokuapp.com/savetemplate",
+	{
+		"company":companyName,
+		"form":studentForm
+	},
+	function(data) {
+		console.log(JSON.stringify(data));
+		swal("Form Sent!");
+		window.location.href = "announcements.html"
+	});
+}
+
 var app = angular.module('myApp', []);
 app.controller('myCtrl', function($scope) {
         $scope.count=0;
@@ -80,7 +158,27 @@ app.controller('myCtrl', function($scope) {
                                         options = val[1].values;
                                 }
                                 //console.log(options);
-                                addElement($scope.count,key,val[0].type);
+								if(appState==0) {
+                                	addElement($scope.count,key,val[0].type);
+								}
+								else {
+									addStudentElement($scope.count,key,val[0].type);
+								}
+                        });
+                });
+				$.getJSON('sample-data/c2.json',function(data){
+                        //console.log(data);
+                        $.each(data, function(key,val){
+                                //console.log(key);
+                                //console.log(val[0].type);
+
+                                $scope.count++;
+                                if(Object.keys(val).length==2)
+                                {
+                                        options = val[1].values;
+                                }
+                                //console.log(options);
+                                addStudentElement($scope.count,key,val[0].type);
                         });
                 });
         }
@@ -103,7 +201,52 @@ app.controller('myCtrl', function($scope) {
 
         $scope.create = function() {
                 $scope.count++;
-                addElement($scope.count,$scope.elem.que,$scope.elem.res);
+				var flag=0;
+				if($scope.checkMultiple()) {
+					// console.log("HERE"+$("#ntimes").val());
+					var opt = new Array();
+					var n=$("#ntimes").val();
+					for( var i=0; i<n; i++ ) {
+
+
+						opt.push(prompt("Enter"));
+
+						// swal("Write something here:", {
+						//   content: "input",
+						// })
+						// .then((value) => {
+						//   // do something with value variable
+						//   opt.push(value);
+						//   console.log(value);
+						//   if(i==n-1) {
+						// 	  flag=1;
+						//   }
+						// });
+					}
+
+					options=opt;
+				}
+
+				// function sleep (time) {
+				// 	return new Promise((resolve) => setTimeout(resolve, time));
+				// }
+				//
+				// while( flag==0; ) {
+				// 	sleep(500).then(() => {
+				//
+				// 	      // Do something after the sleep!
+				// 		  console.log("Waiting");
+				// 	  })
+				// }
+				// while(flag==0) {
+				// 	demo();
+				// }
+				if(appState==0) {
+                	addElement($scope.count,$scope.elem.que,$scope.elem.res);
+				}
+				else {
+					addStudentElement($scope.count,$scope.elem.que,$scope.elem.res);
+				}
                 formData[$scope.count] =  JSON.stringify($scope.elem);
                 console.log(formData);
         };
@@ -118,18 +261,23 @@ app.controller('myCtrl', function($scope) {
                         return false;
                 if($scope.elem.res=="Radio")
                         return true;
+				if($scope.elem.res=="Checkbox")
+                        return true;
                 return false;
         };
         $scope.reload = function() {
                 var $form = $("#preview");
                 var data = getFormData($form);
-                $("#postview").empty();
+                $("#sample").empty();
+				$("#modal").css("display","block");
                 console.log(data);
 				console.log(data["Company"]);
                 var len = q.length;
+				$("#view").hide();
+				companyName = data[q[0]];
                 for (var i = 0; i < len; i++) {
                         f="<div>"+q[i]+" : "+data[q[i]]+"</div>";
-                        $("#postview").append(f);
+                        $("#sample").append(f);
                 }
         };
 		$scope.checkdate = function() {
@@ -158,17 +306,28 @@ app.controller('myCtrl', function($scope) {
 			return false;
 		}
 
-		var eventposted=0;
+		eventposted=0;
 
-		 $(document).ready(function(){
+		 $(document).ready(function() {
 		   $('#submit').click(function() {
-		     window.setInterval(foo, 100);
+			   if(eventposted==0) {
+				   console.log("Hi"+eventposted);
+		     		foo();
+			}
 		   });
 		 });
 
-		 function foo(){
-			 swal("Form Submitted");
-		     window.location = "announcements.html";
+		 function foo() {
+			 swal("Company Added!");
+			 console.log("Alerted");
 		     eventposted=1;
+			 appState=1;
+
+			 $("#preview").css("overflow","hidden");
+			 $("#postview").css("overflow-y","scroll");
+			 $("#view2").show();
+			 $("#disable").hide();
+		 	$("#submit").hide();
+			$("#close").hide();
 		 }
 });

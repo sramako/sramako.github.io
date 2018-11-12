@@ -56,9 +56,15 @@ function test()
         <div ng-app="myApp" ng-controller="myCtrl">
 				<iframe name="formDestination" style="display:none;position:absolute"></iframe>
 
-                <form target="formDestination" id="preview" action="https://ppdb-ep.herokuapp.com/addnewcomp" method="POST" ng-init="load()">
+				<form target="formDestination" id="preview" action="https://ppdb-ep.herokuapp.com/addnewcomp" method="POST" ng-init="load()">
 				<!-- <form target="formDestination" id="preview" action="server/company.php" method="POST" ng-init="load()"> -->
-                        <button type="submit" id="submit" class="button"><span>PUBLISH</span></button>
+						<div id="modal">
+						  <div class="modal-content">
+							  <span class="close" id="close" onclick="closeform()">&times;</span>
+							  <div id="sample"></div>
+							  <button type="submit" id="submit" class="button"	><span>Add Company</span></button>
+						  </div>
+						</div>
 						<div id="0" class="form-element">
 							<h1>Date</h1>
 							<input type=date ng-model="date" name="Date">
@@ -70,9 +76,10 @@ function test()
                 </form>
 
                 <form id="postview">
-                    <div><h1>Preview Box</h1></div>
+					<div id="disable"></div>
                 </form>
                 <button id="view" class="button" ng-click="reload()"><span>Generate</span></button>
+				<button id="view2" class="button" onclick="createStudentForm()"><span>Publish</span></button>
 
                 <div id="create">
 
@@ -92,7 +99,7 @@ function test()
                                             <option></option>
                                           </select>
                                         </div>
-                                        <input type="number" min="1" value=1 ng-show="checkMultiple()">
+                                        <input id="ntimes" type="number" min="1" value=1 ng-show="checkMultiple()">
                                         <br />
                                         <br />
 
@@ -106,6 +113,7 @@ function test()
 
 
         </div>
+
 
 
 </body>
