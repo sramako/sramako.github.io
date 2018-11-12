@@ -18,7 +18,7 @@
   <script src="js/angular.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script>
-  u="Admin";//check_login();
+  u=check_login_admin();
   function test()
   {
   	$("#profile").text("Welcome, "+u);
@@ -304,7 +304,7 @@
 			  <!-- <li><a href="formbuilder.html">Add Company</a></li> -->
 			  <!-- <li><a href="placed.html">Update Status</a></li> -->
 			<li><a href="newemp.html">Add User</a></li>
-			<!-- <li><a><div id="profile" style="color:black"></div></a></li> -->
+			<li><a><div id="profile" style="color:black"></div></a></li>
 		  </ul>
 		  <a id="user" onclick="signout_admin()" class="btn btn btn-danger btn-lg" style="color:#eee;position:absolute;top:5px;bottom:5px;right:5px">
 			  <i class="fa fa-sign-out" style="color:white"></i>
