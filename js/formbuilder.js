@@ -167,6 +167,8 @@ app.controller('myCtrl', function($scope) {
 								}
                         });
                 });
+			}
+		$scope.load2 = function() {
 				$.getJSON('sample-data/c2.json',function(data){
                         //console.log(data);
                         $.each(data, function(key,val){
@@ -330,5 +332,6 @@ app.controller('myCtrl', function($scope) {
 			 $("#disable").hide();
 		 	$("#submit").hide();
 			$("#close").hide();
+			load2();
 		 }
 });
