@@ -29,6 +29,7 @@ function login(x,y) {
 	},
 	function (data) {
 		console.log("+"+JSON.stringify(data)+"+");
+		console.log(data["isAdmin"]);
 		if(data["isAdmin"]==true){
 			setCookie("admin","true",1);
 		}
