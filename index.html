@@ -4,7 +4,26 @@
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
 	// This file is going to check in the cookies whether the person is admin or employee and load it by default everytime.s
-window.location.href="employee_login.html"
+	function getCookie(cname) {
+		var name = cname + "=";
+		var ca = document.cookie.split(';');
+		for(var i = 0; i < ca.length; i++) {
+			var c = ca[i];
+			while (c.charAt(0) == ' ') {
+				c = c.substring(1);
+			}
+			if (c.indexOf(name) == 0) {
+				return c.substring(name.length, c.length);
+			}
+		}
+		return "";
+	}
+	if(getCookie("admin")==true) {
+		window.location.href="admin_login.html";
+	}
+	else {
+		window.location.href="employee_login.html";
+	}
 </script>
 </head>
 <body>HI</body>

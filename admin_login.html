@@ -87,18 +87,18 @@
 <script>
 
 
-	// c=getCookie("login");
-	// console.log("HI"+c);
-	// if(c=="true")
-	// {
-	// 	console.log("REDIRECT");
-	// 	window.location.href="newemp.html";
-	// }
+	c=getCookie("login");
+	console.log("HI"+c);
+	if(c=="true")
+	{
+		console.log("REDIRECT");
+		window.location.href="newemp.html";
+	}
 
 	var app = angular.module('myApp', []);
 	app.controller('myCtrl', function($scope) {
 		$scope.act=function() {
-			//login($scope.emp,$scope.pwd);
+			login($scope.emp,$scope.pwd);
 			window.location.href="newemp.html";
 		}
 	})

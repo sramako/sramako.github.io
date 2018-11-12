@@ -14,6 +14,13 @@
 		<script src="js/session.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.29.0/sweetalert2.all.js"></script>
 		<script>
+			u=check_login_admin();
+			function test()
+			{
+				$("#profile").text("Welcome, "+u);
+			}
+		</script>
+		<script>
 			$.get("https://ppdb-ep.herokuapp.com/listemp", function(data) {
 				console.log(data);
 				size=data.length;

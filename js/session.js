@@ -29,6 +29,13 @@ function login(x,y) {
 	},
 	function (data) {
 		console.log("+"+JSON.stringify(data)+"+");
+		if(data["isAdmin"]=="true"){
+			setCookie("admin","true",1);
+		}
+		else{
+			setCookie("admin","false",1);
+		}
+
 		if(data["status"]=="success") {
 			console.log("Login Success");
 			setCookie("login", "true", 1);
@@ -57,8 +64,32 @@ function login(x,y) {
 		return u;
 	}
 
+	function check_login_admin() {
+		c=getCookie("login");
+		u=getCookie("user");
+		a=getCookie("admin");
+		console.log(c);
+		console.log(u);
+		if(c!="true") {
+			window.stop();
+			swal("You're not logged in!","error");
+			window.location.href="admin_login.html";
+			return false;
+		}
+		if(a!="true"){
+			window.stop();
+			swal("You're not logged in as admin","error");
+			window.location.href="admin_login.html";
+			return false;
+		}
+		return u;
+	}
+
+
+
 	function signout() {
 		setCookie("login", "false", 1);
+		setCookie("admin", "false", 1);
 		check_login();
-		window.location.href="employee_login.html";
+		window.location.href="https://sramako.github.io";
 	}
