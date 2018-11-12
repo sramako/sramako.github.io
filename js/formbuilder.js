@@ -200,7 +200,7 @@ app.controller('myCtrl', function($scope) {
 				}
 			}
 			$scope.events=ret;
-			load2();
+			$scope.load2();
 		});
 
         $scope.create = function() {
