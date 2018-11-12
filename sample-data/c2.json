@@ -1,5 +1,6 @@
 {
         "Name": [{"type":"Text"}],
         "GPA": [{"type":"Text"}],
-		"Date of Birth": [{"type":"Date"}]
+		"Date of Birth": [{"type":"Date"}],
+		"FTE/Internship": [{"type":"Radio"},{"values":["FTE+Internship","FTE"]}]
 }
