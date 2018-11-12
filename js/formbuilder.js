@@ -126,16 +126,16 @@ addStudentElement = function( count, que, res ) {
 createStudentForm = function() {
 	alert("CAught");
 	console.log(companyName);
-	// $.post("https://ppdb-ep.herokuapp.com/savetemplate",
-	// {
-	// 	"company":companyName,
-	// 	"form":studentForm
-	// },
-	// function(data) {
-	// 	console.log(JSON.stringify(data));
-	// 	swal("Form Sent!");
-	// 	window.location.href = "announcements.html"
-	// });
+	$.post("https://ppdb-ep.herokuapp.com/savetemplate",
+	{
+		"company":companyName,
+		"form":studentForm
+	},
+	function(data) {
+		console.log(JSON.stringify(data));
+		swal("Form Sent!");
+		window.location.href = "announcements.html"
+	});
 }
 
 var app = angular.module('myApp', []);
