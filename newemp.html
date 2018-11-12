@@ -68,12 +68,12 @@
 				console.log(y);
 				console.log(z);
 				if(y!=z) {
-					swal2({
+					swal({
 					  type: 'error',
 					  title: 'Password Mismatch!',
 					  text: 'Please try again!',
 					  footer: '<a href>Cancel and go to Admin Page!</a>'
-					})
+				  });
 				}
 				else {
 					$.post("https://ppdb-ep.herokuapp.com/addemp",
