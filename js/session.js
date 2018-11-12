@@ -41,6 +41,7 @@ function login(x,y) {
 			console.log("Login Success");
 			setCookie("login", "true", 1);
 			setCookie("user", x, 1);
+			window.location.href="announcements.html";
 		}
 		else {
 			console.log("Login Failed");
@@ -49,6 +50,39 @@ function login(x,y) {
 			return "false";
 		}
 	})}
+
+	function login_admin(x,y) {
+		// $.post("server/login.php",
+		$.post("https://ppdb-ep.herokuapp.com/emplogin",
+		{
+						"username": x,
+						"password": y
+		},
+		function (data) {
+			console.log("+"+JSON.stringify(data)+"+");
+			console.log(data["isAdmin"]);
+			if(data["isAdmin"]==true){
+				setCookie("admin","true",1);
+			}
+			else{
+				setCookie("admin","false",1);
+			}
+
+			if(data["status"]=="success") {
+				console.log("Login Success");
+				setCookie("login", "true", 1);
+				setCookie("user", x, 1);
+				window.location.href="newemp.html";
+			}
+			else {
+				console.log("Login Failed");
+				setCookie("login", "false", 1);
+				swal("Wrong Credentials","error");
+				return "false";
+			}
+		})}
+
+
 
 	function check_login() {
 		c=getCookie("login");
