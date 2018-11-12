@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Student Details</title>
+  <meta name="description" content="Free Bootstrap Theme by BootstrapMade.com">
+  <meta name="keywords" content="free website templates, free bootstrap themes, free template, free bootstrap, free website template">
+
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans|Candal|Alegreya+Sans">
+  <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/imagehover.min.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <script src="js/session.js"></script>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/angular.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script>
+  u="Admin";//check_login();
+  function test()
+  {
+  	$("#profile").text("Welcome, "+u);
+  }
+  </script>
+  <script>
+	  psdata = new Object();
+	  names = new Array();
+	  query_type="name";
+
+	  var myURL = "https://ppdb-ep.herokuapp.com/formdata";
+	  $.getJSON( myURL, function(data) {
+		  psdata = data;
+		  console.log(data);
+		  show();
+	  });
+
+	  query_swap=function() {
+		  if(query_type=="name")
+		  {
+			  query_type="usn";
+			  $("h2").text("USN");
+			  show();
+		  }
+		  else {
+			  query_type="name";
+			  $("h2").text("Name");
+			  show();
+		  }
+	  }
+
+	  // Get the modal
+	  var modal = document.getElementById('modal');
+
+	  // Get the <span> element that closes the modal
+	  var span = document.getElementsByClassName("close");
+
+	  // When the user clicks on <span> (x), close the modal
+	  closeform = function() {
+		  console.log("CLOSE");
+		  document.getElementById('modal').style.display = "none";
+		  document.getElementById("search").value="";
+	  }
+
+	  // When the user clicks anywhere outside of the modal, close it
+	  window.onclick = function(event) {
+		  console.log("Stray Click");
+		  if (event.target == modal) {
+			  document.getElementById('modal').style.display = "none";
+			  document.getElementById("search").value="";
+		  }
+	  }
+
+	  show = function() {
+
+		  //console.log(psdata);
+		  s = psdata.length;
+		  names=[]; //SMART SEARCH OFF
+		  for( var i=0; i<s; i++ )
+		  {
+			  if(query_type=="name")
+			  	names.push(psdata[i].name); //NAME
+			  else
+			  	names.push(psdata[i].usn);
+		  }
+		  //console.log(names);
+		  //LOAD COMPLETE
+	  }
+
+	  predict=function() {
+		  var q = $('#search').val().toUpperCase();
+		  console.log(q);
+		  var res = new Array();
+		  var s = names.length;
+		  console.log("Size"+q.length);
+		  if(q.length>0) {
+			  for( var i=0; i<s; i++ )
+			  {
+				  if(query_type=="name") {
+					  if(names[i].startsWith(q))
+					  {
+						  res.push(i);
+					  }
+				  }
+				  else {
+				  		if(names[i].includes(q))
+						{
+							res.push(i);
+						}
+				  }
+			  }
+			  showResult(res);
+		  }
+		  else {
+			  search.style.backgroundColor="white";
+			  container.style.visibility="hidden";
+			  console.log("HIDDEN"+container.style.visibility);
+		  }
+	  }
+
+	  setName=function(e)
+	  {
+		  var str=e.target.innerHTML;
+		  document.getElementById("search").value=str;
+		  var i = names.indexOf(str);
+		  console.log(i+" : "+psdata[i]);
+		  // document.getElementById("result").innerHTML=JSON.stringify(psdata[i]);
+		  getDetails(psdata[i].usn);
+		  container.style.visibility="hidden";
+		  document.getElementById('modal').style.display = "block";
+	  }
+
+	  showResult=function(res)
+	  {
+		  console.log("Show Result called");
+		  search = document.getElementById("search");
+		  container = document.getElementById("container");
+
+		  console.log("RES="+res);
+
+		  if(res.length==0)
+		  {
+			  container.innerHTML='';
+			  search.style.backgroundColor="red";
+			  container.style.visibility="hidden";
+		  }
+		  else
+		  {
+			  container.innerHTML='';
+			  container.style.visibility="visible";
+			  for(f in res)
+			  {
+				  console.log("populating");
+				  search.style.backgroundColor="white";
+				  itemDiv=document.createElement("div");
+				  itemDiv.className="sitem";
+				  itemDiv.innerHTML=names[res[f]];
+				  container.appendChild(itemDiv);
+				  itemDiv.onclick=setName;
+			  }
+		  }
+		  container.style.display="block";
+	  }
+
+	  gather = function() {
+		  var company=document.getElementById('company');
+		  console.log(company);
+	  }
+
+	  block=function() {
+		  // $.post("",
+		  // {
+		  //
+		  // },
+		  // function(data) {
+			//   console.log(data);
+			//   if(data) {
+		  //
+			//   }
+		  // });
+		  document.getElementById("container").style.display="none";
+		  swal("Success");
+	  }
+
+  </script>
+
+	<style>
+
+	body {
+		background-color: #444;
+	}
+	input {
+		background-color: darkred;
+		border: 0;
+	}
+	#container{
+		border:solid 1px black;
+		display:none;
+		max-height: 100px;
+		overflow: auto;
+		max-width: 100%;
+		padding-left: 10px;
+		padding-top: 10px;
+		background-color: white;
+	}
+	.sitem{
+		background-color:white;
+		color:black;
+		padding-left: 5px;
+		padding-top: 2px;
+		padding-bottom: 2px;
+	}
+	.sitem:hover{
+		background-color:gray;
+		color:white;
+	}
+	table {
+		position: absolute;
+		top:25%;
+		align:center;
+		left: 0;
+		right: 50px;
+		margin-left: auto;
+		margin-right: auto;
+		width: 70%;
+	}
+	#search {
+		align:center;
+		width: 99%;
+		line-height:50px;
+		padding-left: 10px;
+		text-transform:uppercase;
+
+	}
+	#searchname {
+		text-align:center;
+		width:150px;
+		background:black;
+	}
+
+	td {
+		overflow: hidden;
+		white-space: nowrap;
+	}
+
+	#scont {
+		background:#555;
+	}
+	h2 {
+		color:white;
+	}
+
+	#modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	padding-top: 100px; /* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: white; /* Fallback color */
+	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 20%;
+}
+
+/* The Close Button */
+.close {
+	color: #aaaaaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}
+	</style>
+
+</head>
+
+<body onload="test()">
+	<!--Navigation bar-->
+	<nav class="navbar navbar-default navbar-fixed-top" style="background-color:#050505;position:relative;border: 0;" >
+	  <div class="container">
+		<div class="navbar-header">
+		  <a class="navbar-brand" style="color:#d32f2f;" href="announcements.html">PESU Placement - &#9819 ADMINISTRATOR</a>
+		</div>
+		<div class="collapse navbar-collapse" id="myNavbar">
+		  <ul class="nav navbar-nav navbar-right">
+			  <!-- <li><a href="formbuilder.html">Add Company</a></li> -->
+			  <!-- <li><a href="placed.html">Update Status</a></li> -->
+			<li><a href="newemp.html">Add User</a></li>
+			<!-- <li><a><div id="profile" style="color:black"></div></a></li> -->
+		  </ul>
+		  <a id="user" onclick="signout_admin()" class="btn btn btn-danger btn-lg" style="color:#eee;position:absolute;top:5px;bottom:5px;right:5px">
+			  <i class="fa fa-sign-out" style="color:white"></i>
+			  <span id="uname">Log out</span>
+		  </a>
+		</div>
+	  </div>
+	</nav>
+	<!--/ Navigation bar-->
+
+  <!-- <div class="container details">
+    Enter USN to fetch details: <input type="text" name="USN" id="USN">
+     <div id="result">
+
+     </div>
+    <input type="button" name="getDetails" value="search" onclick="getDetails()">
+    <br>
+  </div> -->
+
+
+  <table border="0" cellpadding="0">
+  <tr>
+		  <td id="searchname" onclick="query_swap()"><h2>Name</h2></td>
+		  <td id="scont"><input type="text" id="search" onkeyup="predict()"/></td>
+  </tr>
+  <tr>
+	  <td></td>
+	  <td><div id="container"></div></td>
+  </tr>
+  </table>
+
+  <div id="modal">
+	  <div class="modal-content">
+		  <div style="width:100%;">
+		  <span class="close" onclick="closeform()">&times;</span>
+		  <div id="result"></div>
+		  </div>
+		  <br/>
+		  <div align="center">
+			  <button class="btn btn btn-danger btn-lg" onclick="block()">BLOCK</button>
+		  </div>
+	  </div>
+  </div>
+
+
+  <!--Footer-->
+  <footer id="footer" class="footer" style="position:absolute;bottom:0px;width:100%">
+	<div class="container text-center">
+	  <!-- End newsletter-form -->
+	  <ul class="social-links">
+		<li><a href="#link"><i class="fa fa-twitter fa-fw"></i></a></li>
+		<li><a href="#link"><i class="fa fa-facebook fa-fw"></i></a></li>
+		<li><a href="#link"><i class="fa fa-google-plus fa-fw"></i></a></li>
+		<li><a href="#link"><i class="fa fa-dribbble fa-fw"></i></a></li>
+		<li><a href="#link"><i class="fa fa-linkedin fa-fw"></i></a></li>
+	  </ul>
+	  ©PESU Placement. All rights reserved
+	  <div class="credits">
+		Designed by <a href="https://bootstrapmade.com/">students of PESU</a>
+	  </div>
+	</div>
+  </footer>
+  <!--/ Footer-->
+
+  <script src="js/jquery.min.js"></script>
+  <script src="js/jquery.easing.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/custom.js"></script>
+  <script src="contactform/contactform.js"></script>
+
+  <script type="text/javascript">
+    var p = document.getElementById("result");
+
+    function getDetails(s){
+		console.log("GET DETAILS CALLED");
+          var tf = 0;
+          for(i=0;i<psdata.length;i++){
+            if(psdata[i].usn==s){
+              console.log(psdata[i].usn+" "+psdata[i].name+" "+psdata[i].email);
+              //p.innerHTML = data[i].usn+" "+data[i].name+" "+data[i].email+" "+data[i].score_gpa+" "+data[i].intern_status+" "+data[i].fte_status+" "+data[i].blacklisted
+              var usn = document.createElement('div');
+              var name = document.createElement('div');
+              var email = document.createElement('div');
+              // var gpa = document.createElement('div');
+              var intern_status = document.createElement('div');
+              var fte_status = document.createElement('div');
+              var blacklisted = document.createElement('div');
+              // p.appendChild(usn);
+              // p.appendChild(name);
+              // p.appendChild(email);
+              // p.appendChild(gpa);
+              // p.appendChild(intern_status);
+              // p.appendChild(fte_status);
+              // p.appendChild(blacklisted);
+              p.innerHTML = "USN: " + psdata[i].usn + "<br/>";
+              p.innerHTML += "Name: " + psdata[i].name + "<br/>";
+              p.innerHTML += "Email: " + psdata[i].email + "<br/>";
+              // usn.innerHTML += "GPA: " + psdata[i].score_gpa + "<br/>";
+              p.innerHTML += "Intern Status: " + psdata[i].intern_status + "<br/>";
+              p.innerHTML += "FTE Status: " + psdata[i].fte_status + "<br/>";
+              p.innerHTML += "Blacklisted: " + psdata[i].blacklisted + "<br/>";
+              tf = 1;
+              break;
+            }
+          }
+          if(tf==0) {
+            p.innerHTML = "Student not found";
+          }
+    }
+
+  </script>
+
+</body>
+
+</html>
