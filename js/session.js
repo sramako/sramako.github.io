@@ -97,5 +97,5 @@ function login(x,y) {
 	function signout_admin() {
 		setCookie("login", "false", 1);
 		setCookie("admin", "false", 1);
-		window.location.href="https://sramako.github.io/admin_login.html";
+		window.location.href="admin_login.html";
 	}
