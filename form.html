@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Student Details</title>
+  <meta name="description" content="Free Bootstrap Theme by BootstrapMade.com">
+  <meta name="keywords" content="free website templates, free bootstrap themes, free template, free bootstrap, free website template">
+
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans|Candal|Alegreya+Sans">
+  <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/imagehover.min.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" href="css/formbuilder.css">
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head> -->
+
+<head>
+	<style>
+	.styled-select {
+	   background: url(http://i62.tinypic.com/15xvbd5.png) no-repeat 96% 0;
+	   height: 29px;
+	   overflow: hidden;
+	   width: 240px;
+	}
+
+	.styled-select select {
+	   background: transparent;
+	   border: none;
+	   font-size: 14px;
+	   height: 29px;
+	   padding: 5px; /* If you add too much padding here, the options won't show in IE */
+	   width: 268px;
+	}
+
+	.styled-select.slate {
+	   background: url(http://i62.tinypic.com/2e3ybe1.jpg) no-repeat right center;
+	   height: 34px;
+	   width: 240px;
+	}
+
+	.styled-select.slate select {
+	   border: 1px solid #ccc;
+	   font-size: 16px;
+	   height: 34px;
+	   width: 268px;
+	}
+
+	/* -------------------- Rounded Corners */
+	.rounded {
+	   -webkit-border-radius: 20px;
+	   -moz-border-radius: 20px;
+	   border-radius: 20px;
+	}
+
+	.semi-square {
+	   -webkit-border-radius: 5px;
+	   -moz-border-radius: 5px;
+	   border-radius: 5px;
+	}
+
+	/* -------------------- Colors: Background */
+	.slate   { background-color: #ddd; }
+	.green   { background-color: #779126; }
+	.blue    { background-color: #3b8ec2; }
+	.yellow  { background-color: #eec111; }
+	.black   { background-color: #000; }
+
+	/* -------------------- Colors: Text */
+	.slate select   { color: #000; }
+	.green select   { color: #fff; }
+	.blue select    { color: #fff; }
+	.yellow select  { color: #000; }
+	.black select   { color: #fff; }
+
+
+	/* -------------------- Select Box Styles: danielneumann.com Method */
+	/* -------------------- Source: http://danielneumann.com/blog/how-to-style-dropdown-with-css-only/ */
+	#mainselection select {
+	   border: 0;
+	   color: #EEE;
+	   background: transparent;
+	   font-size: 20px;
+	   font-weight: bold;
+	   padding: 2px 10px;
+	   width: 100%;
+	   *width: 90%;
+	   *background: #58B14C;
+	   -webkit-appearance: none;
+	}
+
+	#mainselection {
+	   overflow:hidden;
+	   width:80%;
+	   -moz-border-radius: 9px 9px 9px 9px;
+	   -webkit-border-radius: 9px 9px 9px 9px;
+	   border-radius: 9px 9px 9px 9px;
+	   box-shadow: 1px 1px 11px #330033;
+	   background: #58B14C url("http://i62.tinypic.com/15xvbd5.png") no-repeat scroll 319px center;
+	}
+
+
+	/* -------------------- Select Box Styles: stackoverflow.com Method */
+	/* -------------------- Source: http://stackoverflow.com/a/5809186 */
+	select#soflow, select#soflow-color {
+	   -webkit-appearance: button;
+	   -webkit-border-radius: 2px;
+	   -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+	   -webkit-padding-end: 20px;
+	   -webkit-padding-start: 2px;
+	   -webkit-user-select: none;
+	   background-image: url(http://i62.tinypic.com/15xvbd5.png), -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
+	   background-position: 97% center;
+	   background-repeat: no-repeat;
+	   border: 1px solid #AAA;
+	   color: #555;
+	   font-size: inherit;
+	   margin: 20px;
+	   overflow: hidden;
+	   padding: 5px 10px;
+	   text-overflow: ellipsis;
+	   white-space: nowrap;
+	   width: 300px;
+	}
+
+	select#soflow-color {
+	   color: #fff;
+	   background-image: url(http://i62.tinypic.com/15xvbd5.png), -webkit-linear-gradient(#779126, #779126 40%, #779126);
+	   background-color: #779126;
+	   -webkit-border-radius: 20px;
+	   -moz-border-radius: 20px;
+	   border-radius: 20px;
+	   padding-left: 15px;
+	}
+	/*____________________________________________________________________________________________________________________*/
+
+
+	form#preview {
+	  padding-top: 40px;
+	  padding-left: 40px;
+	  position: fixed;
+	  width: 45%;
+	  float: left;
+	  display:block;
+	  border: 1px solid #AAA;
+	  overflow-y: scroll;
+	  top:80px;
+	  left:20px;
+	  bottom:20px;
+	}
+
+	form#postview {
+	  padding-top: 40px;
+	  padding-left: 40px;
+	  padding-bottom: 20px;
+	  /* border: 1px solid #AAA; */
+	  /* overflow-y: scroll; */
+	}
+
+	#view{
+	  position: fixed;
+	  left:5%;
+	  bottom: 5%;
+	}
+
+	::-webkit-scrollbar {
+		width: 12px;
+	}
+
+	::-webkit-scrollbar-track {
+		-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+		background-color: #F5F5F5;
+	}
+
+	::-webkit-scrollbar-thumb {
+		background-color: #0ae;
+		background-image: -webkit-gradient(linear, 0 0, 0 100%,
+						  color-stop(.5, rgba(255, 255, 255, .2)),
+								  color-stop(.5, transparent), to(transparent));
+	}
+
+	#submit.button{
+		position: relative;
+		background-color: #555;
+		color: white;
+		padding: 16px 20px;
+		border: none;
+		cursor: pointer;
+		opacity: 0.8;
+		left: 40%;
+		/* position: fixed;
+		bottom: 80px;
+		right: 25px; */
+		width: 250px;
+		float: center;
+		/* z-index: 10; */
+	}
+	#submit.button:hover {
+	  background-color: #0074D9;
+	}
+
+	.button {
+	  border-radius: 4px;
+	  background-color: #f4511e;
+	  border: none;
+	  color: #FFFFFF;
+	  text-align: center;
+	  font-size: 28px;
+	  padding: 20px;
+	  width: 200px;
+	  transition: all 0.5s;
+	  cursor: pointer;
+	  margin: 5px;
+	}
+
+	.button:hover {
+	  background-color: #0074D9;
+	}
+
+	.button span {
+	  cursor: pointer;
+	  display: inline-block;
+	  position: relative;
+	  transition: 0.5s;
+	}
+
+	.button span:after {
+	  content: '\00bb';
+	  position: absolute;
+	  opacity: 0;
+	  top: 0;
+	  right: -20px;
+	  transition: 0.5s;
+	}
+
+	.button:hover span {
+	  padding-right: 25px;
+	}
+
+	.button:hover span:after {
+	  opacity: 1;
+	  right: 0;
+	}
+	.form-element {
+		box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+		transition: 0.3s;
+		width: 70%;
+		padding: 40px 40px 40px 40px;
+		margin-bottom: 50px;
+		float:left;
+	}
+	.form-element:hover {
+		box-shadow: 0 8px 16px 0 rgba(0,0,0,0.4);
+	}
+	input[type=text], select {
+		width: 90%;
+		padding: 12px 20px;
+		margin: 8px 0;
+		display: inline-block;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		box-sizing: border-box;
+	}
+
+	</style>
+	<script src="js/angular.min.js"></script>
+	<script src="js/jquery.min.js"></script>
+</head>
+
+<body>
+	<form id="postview"></form>
+	<div style="position:absolute;">Debug: cookie: {company:<span id="debug"></span>}</div>
+	<script type="text/javascript">
+
+		function getCookie(cname) {
+			var name = cname + "=";
+			var ca = document.cookie.split(';');
+			for(var i = 0; i < ca.length; i++) {
+				var c = ca[i];
+				while (c.charAt(0) == ' ') {
+					c = c.substring(1);
+				}
+				if (c.indexOf(name) == 0) {
+					return c.substring(name.length, c.length);
+				}
+			}
+			return "";
+		}
+
+		checkCompany = function() {
+			$("#debug").append(getCookie("company"));
+		}
+		checkCompany();
+
+		count=0;
+		options = new Object();
+		formData = new Array();
+		qs = new Array();
+		$.getJSON('sample-data/studentformtemplate.json',function(data){
+				//console.log(data);
+				$.each(data, function(key,val){
+						//console.log(key);
+						//console.log(val[0].type);
+
+						count++;
+						if(Object.keys(val).length==2)
+						{
+								options = val[1].values;
+						}
+						//console.log(options);
+						addStudentElement(count,key,val[0].type);
+				});
+		});
+		addStudentElement = function( count, que, res ) {
+		        var element = angular.element("<div id="+count+"  class=form-element >"+"</div>");
+		        var target = document.getElementById('postview');
+		        angular.element(target).append(element);
+
+		        $("#"+count).append("<h1>"+que+"</h1>");
+		        qs[count-1] = que;
+		        if(res=="Text"){
+		                // $("#preview").append("<input type=\"text\" ng-model=\"e.q"+count+"\"/>");
+		                $("#"+count).append("<input type=\"text\" ng-model=\"e.q"+count+"\" name=\""+que+"\"></html>");
+		        }
+		        if(res=="Radio"){
+		                var optlen = options.length;
+		                for (var i = 0; i < optlen; i++) {
+		                    $("#"+count).append("<input type=radio name=\"" + que + "\" value=\"" + options[i] + "\">"+options[i]+"</h1><br />");
+		                }
+		        }
+				if(res=="Checkbox"){
+						qs[count-1] = que+"[]";
+		                var optlen = options.length;
+		                for (var i = 0; i < optlen; i++) {
+		                    $("#"+count).append("<input type=checkbox name=\"" + que + "[]\" value=\"" + options[i] + "\">"+options[i]+"</h1><br />");
+		                }
+		        }
+				if(res=="Date"){
+		                // $("#preview").append("<input type=\"text\" ng-model=\"e.q"+count+"\"/>");
+		                $("#"+count).append("<input type=\"date\" name=\""+que+"\"></html>");
+		        }
+		        //PARSE OTHER TYPES
+		}
+	</script>
+</	html>
