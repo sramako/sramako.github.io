@@ -1,0 +1,5 @@
+{
+        "Name": [{"type":"Text"}],
+        "GPA": [{"type":"Text"}],
+		"Date of Birth": [{"type":"Date"}]		
+}
