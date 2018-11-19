@@ -41,6 +41,10 @@ body.loading .modal {
 display: block;
 }
 
+#close :hover {
+	color: red;
+}
+
 </style>
 
 
@@ -292,9 +296,9 @@ function myFunction() {
 <br/>
 <div id="chartContainer4" style="width: 100%; height: 300px;display: inline-block;"></div>
 </div>
-<div id="close" style="position:absolute; bottom:0; height:10%; width:99%; background-color:black">
-	<a style="color:white;position:absolute;left:50%;right:50%" onclick="window.location.href='employee_login.html'">
-		<h2 onhover="this.">Close</h2>
+<div  style="position:absolute; bottom:0; height:10%; width:99%; background-color:black">
+	<a id="close" style="color:white;position:absolute;left:50%;right:50%" onclick="window.location.href='employee_login.html'">
+		<h2>Close</h2>
 	</a>
 </div>
 </body>
