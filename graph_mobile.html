@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<p id="results">hey</p>
+
+
+<script>
+
+var no_of_students=0;
+var no_of_placed_students=0;
+var no_of_unplaced_students=0;
+var no_of_only_intern=0;
+var no_of_intern=0;
+var no_of_only_fte=0;
+var t1=0;
+var t2=0;
+var t3=0;
+var blocked=0;
+var t1_above7=0;
+var t1_above8=0;
+var t1_above9=0;
+var t2_above7=0;
+var t2_above8=0;
+var t2_above9=0;
+var t3_above7=0;
+var t3_above8=0;
+var t3_above9=0;
+
+var myURL = "https://ppdb-ep.herokuapp.com/formdata";
+      $.getJSON(myURL, function(data) {
+          var psdata = data;
+          document.getElementById("results").innerHTML = psdata.length;
+          no_of_students = psdata.length;
+          var hanging_in_there = /Hang/i;
+          var reg_t1 = /t1/i;
+          var reg_t2 = /t2/i;
+          var reg_t3 = /t3/i;
+          
+          for(var i=0; i<no_of_students;i++)
+          {
+            if(hanging_in_there.test(psdata[i].fte_status) && psdata[i].intern_status == 'false')
+                no_of_unplaced_students++;
+            if(psdata[i].intern_status == "true")
+                no_of_intern++;
+            if(psdata[i].intern_status == "true" && hanging_in_there.test(psdata[i].fte_status))
+                no_of_only_intern++;
+            // if(myObj[i].fte_status == 'true' || myObj[i].fte_status == 'true' || myObj[i].fte_status == 'true' || myObj[i].fte_status == 'true')
+            if(reg_t1.test(psdata[i].fte_status))
+                t1++;
+            if(reg_t2.test(psdata[i].fte_status))
+                t2++;
+            if(reg_t3.test(psdata[i].fte_status))
+                t3++;
+          }
+          //STUDENTS PLACED IN T1 --- PIE CHART 
+          for(var i=0;i<no_of_students;i++)
+          {
+            if(reg_t1.test(psdata[i].fte_status))
+            {
+                if(psdata[i].score_gpa>=7 && psdata[i].score_gpa<8)
+                {
+                    t1_above7++;
+                }
+                if(psdata[i].score_gpa>=8 && psdata[i].score_gpa<9)
+                {
+                    t1_above8++;
+                }
+                if(psdata[i].score_gpa>=9)
+                {
+                    t1_above9++;
+                }
+            }   
+          }
+
+          //STUDENTS PLACED IN T2 --- PIE CHART 
+          for(var i=0;i<no_of_students;i++)
+          {
+            if(reg_t2.test(psdata[i].fte_status))
+            {
+                if(psdata[i].score_gpa>=7 && psdata[i].score_gpa<8)
+                {
+                    t2_above7++;
+                }
+                if(psdata[i].score_gpa>=8 && psdata[i].score_gpa<9)
+                {
+                    t2_above8++;
+                }
+                if(psdata[i].score_gpa>=9)
+                {
+                    t2_above9++;
+                }
+            }    
+          } 
+
+          //STUDENTS PLACED IN T3 --- PIE CHART 
+          for(var i=0;i<no_of_students;i++)
+          {
+            if(reg_t3.test(psdata[i].fte_status))
+            {
+                if(psdata[i].score_gpa>=7 && psdata[i].score_gpa<8)
+                {
+                    t3_above7++;
+                }
+                if(psdata[i].score_gpa>=8 && psdata[i].score_gpa<9)
+                {
+                    t3_above8++;
+                }
+                if(psdata[i].score_gpa>=9)
+                {
+                    t3_above9++;
+                }
+            }    
+          } 
+        });
+
+
+
+document.getElementById("results").addEventListener("click", myFunction);
+function myFunction() {
+    var chart = new CanvasJS.Chart("chartContainer",
+    {
+        animationEnabled: true,
+        title: {
+            text: ""
+        },
+        axisY:{
+            title: "Number of students"
+        },
+        axisX: {
+            interval: 10,
+        },
+        data: [
+        {
+            type: "column",
+            legendMarkerType: "triangle",
+            legendMarkerColor: "green",
+            color: "rgba(255,12,32,.3)",
+            showInLegend: true,
+            legendText: "Tier wise student placements",
+            dataPoints: [
+                { x: 10, y: t1, label: "Tier 1" },
+                { x: 20, y: t2, label: "Tier 2" },
+                { x: 30, y: t3, label: "Tier 3" }
+            ]
+        },
+        ]
+    });
+    chart.render();
+
+
+
+    var chart2 = new CanvasJS.Chart("chartContainer2",
+    {
+        theme: "light2", // "light1", "light2", "dark1", "dark2"
+    exportEnabled: true,
+    animationEnabled: true,
+    title: {
+        text: "Students placed in T1"
+    },
+    data: [{
+        type: "pie",
+        startAngle: 25,
+        toolTipContent: "<b>{label}</b>: {y}%",
+        showInLegend: "true",
+        legendText: "{label}",
+        indexLabelFontSize: 16,
+        indexLabel: "{label} - {y}%",
+        dataPoints: [
+            { y: t1_above9, label: "CGPA above 9" },
+            { y: t1_above8, label: "CGPA above 8" },
+            { y: t1_above7, label: "CGPA above 7" }
+        ]
+    }]
+    });
+    chart2.render();
+
+
+
+    var chart3 = new CanvasJS.Chart("chartContainer3",
+    {
+        theme: "light2", // "light1", "light2", "dark1", "dark2"
+    exportEnabled: true,
+    animationEnabled: true,
+    title: {
+        text: "Students placed in T2"
+    },
+    data: [{
+        type: "pie",
+        startAngle: 25,
+        toolTipContent: "<b>{label}</b>: {y}%",
+        showInLegend: "true",
+        legendText: "{label}",
+        indexLabelFontSize: 16,
+        indexLabel: "{label} - {y}%",
+        dataPoints: [
+            { y: t2_above9, label: "CGPA above 9" },
+            { y: t2_above8, label: "CGPA above 8" },
+            { y: t2_above7, label: "CGPA above 7" }
+        ]
+    }]
+    });
+    chart3.render();
+
+    
+    var chart4 = new CanvasJS.Chart("chartContainer4",
+    {
+        theme: "light2", // "light1", "light2", "dark1", "dark2"
+    exportEnabled: true,
+    animationEnabled: true,
+    title: {
+        text: "Students placed in T3"
+    },
+    data: [{
+        type: "pie",
+        startAngle: 25,
+        toolTipContent: "<b>{label}</b>: {y}%",
+        showInLegend: "true",
+        legendText: "{label}",
+        indexLabelFontSize: 16,
+        indexLabel: "{label} - {y}%",
+        dataPoints: [
+            { y: t3_above9, label: "CGPA above 9" },
+            { y: t3_above8, label: "CGPA above 8" },
+            { y: t3_above7, label: "CGPA above 7" }
+        ]
+    }]
+    });
+    chart4.render();
+}
+
+
+</script>
+
+
+
+<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<div id="chartContainer" style="width: 45%; height: 300px;display: inline-block;"></div>
+<br/>
+<div id="chartContainer2" style="width: 45%; height: 300px;display: inline-block;"></div> 
+<br/>
+<div id="chartContainer3" style="width: 45%; height: 300px;display: inline-block;"></div>  
+<br/>
+<div id="chartContainer4" style="width: 45%; height: 300px;display: inline-block;"></div>  
+
+</body>
+</html>
