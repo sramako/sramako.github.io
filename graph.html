@@ -6,6 +6,7 @@
 <p id="results"><div class="modal"><!-- Place at bottom of page --></div></p>
 
 <style media="screen">
+
 /* <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css"> */
 /* <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"> */
 /* <link rel="stylesheet" type="text/css" href="css/imagehover.min.css"> */
@@ -39,6 +40,11 @@ modal element will be visible */
 body.loading .modal {
 display: block;
 }
+
+#close:onclick {
+	background-color: blue;
+}
+
 </style>
 
 
@@ -274,7 +280,6 @@ function myFunction() {
     chart4.render();
 }
 
-
 </script>
 
 
@@ -291,10 +296,11 @@ function myFunction() {
 <br/>
 <div id="chartContainer4" style="width: 100%; height: 300px;display: inline-block;"></div>
 </div>
-<div style="position:absolute; bottom:0; height:10%; width:99%; background-color:black">
-	<div style="color:white;position:absolute;left:50%;right:50%" onclick="window.location.href='employee_login.html'">
-		<h2>Close</h2>
-	</div>
+<div id="close" style="position:absolute; bottom:0; height:10%; width:99%; background-color:black">
+	<a style="color:white;position:absolute;left:50%;right:50%" onclick="window.location.href='employee_login.html'">
+		<h2 onhover="this.">Close</h2>
+	</a>
 </div>
 </body>
+
 </html>
