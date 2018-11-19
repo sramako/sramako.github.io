@@ -208,10 +208,12 @@
 				for( var i=0; i<s; i++ )
 				{
 					if(query_type=="name") {
+					if(typeof names[i]!="undefined") {
   					  if(names[i].startsWith(q))
   					  {
   						  res.push(i);
   					  }
+				  }
   				  }
   				  else {
   				  		if(names[i].includes(q))
