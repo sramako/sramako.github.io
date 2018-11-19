@@ -272,14 +272,25 @@
 		border-radius: 4px;
 		box-sizing: border-box;
 	}
-
+	button {
+		background: #0066A2;
+		color: white;
+		border-style: outset;
+		border-color: #0066A2;
+		height: 50px;
+		width: 100%;
+		font: bold 15px arial, sans-serif;
+		text-shadow:none;
+		border-radius: 10px;
+	}
 	</style>
 	<script src="js/angular.min.js"></script>
 	<script src="js/jquery.min.js"></script>
 </head>
 
 <body style="background-color:white;">
-	<form id="postview"></form>
+	<form id="postview" method="POST" action="https://ppdb-ep.herokuapp.com/saveformresponse"></form>
+	<button onclick="SubForm()" type="submit" name="button">Submit</button>
 	<div style="position:absolute;">Debug: cookie: {company:<span id="debug"></span>}</div>
 	<script type="text/javascript">
 
@@ -351,6 +362,20 @@
 		                $("#"+count).append("<input type=\"date\" name=\""+que+"\"></html>");
 		        }
 		        //PARSE OTHER TYPES
+		}
+
+		function SubForm(){
+		    var url=$('form').attr('action'),
+		    data=$('form').serialize();
+		    $.ajax({
+		        url:url,
+		        type:'post',
+		        data:data,
+		        success:function(){
+		           alert("Success")
+				   close()
+		       }
+		   });
 		}
 	</script>
 </body>
