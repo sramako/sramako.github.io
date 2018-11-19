@@ -2,10 +2,54 @@
 <html>
 <body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<p id="results">hey</p>
+<!-- <script src="js/jquery.min.js"></script> -->
+<p id="results"><div class="modal"><!-- Place at bottom of page --></div></p>
+
+<style media="screen">
+/* <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css"> */
+/* <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"> */
+/* <link rel="stylesheet" type="text/css" href="css/imagehover.min.css"> */
+/* Start by setting display:none to make this hidden.
+Then we position it in relation to the viewport window
+with position:fixed. Width, height, top and left speak
+for themselves. Background we set to 80% white with
+our animation centered, and no-repeating */
+.modal {
+display:    none;
+position:   fixed;
+z-index:    1000;
+top:        0;
+left:       0;
+height:     100%;
+width:      100%;
+background: rgba( 255, 255, 255, .8 )
+			url('http://i.stack.imgur.com/FhHRx.gif')
+			50% 50%
+			no-repeat;
+}
+
+/* When the body has the loading class, we turn
+the scrollbar off with overflow:hidden */
+body.loading .modal {
+overflow: hidden;
+}
+
+/* Anytime the body has the loading class, our
+modal element will be visible */
+body.loading .modal {
+display: block;
+}
+</style>
 
 
 <script>
+
+$body = $("body");
+
+$(document).on({
+    ajaxStart: function() { $body.addClass("loading");    },
+     ajaxStop: function() { $body.removeClass("loading"); }
+});
 
 var no_of_students=0;
 var no_of_placed_students=0;
@@ -30,13 +74,13 @@ var t3_above9=0;
 var myURL = "https://ppdb-ep.herokuapp.com/formdata";
       $.getJSON(myURL, function(data) {
           var psdata = data;
-          document.getElementById("results").innerHTML = psdata.length;
+          // document.getElementById("results").innerHTML = psdata.length;
           no_of_students = psdata.length;
           var hanging_in_there = /Hang/i;
           var reg_t1 = /t1/i;
           var reg_t2 = /t2/i;
           var reg_t3 = /t3/i;
-          
+
           for(var i=0; i<no_of_students;i++)
           {
             if(hanging_in_there.test(psdata[i].fte_status) && psdata[i].intern_status == 'false')
@@ -53,7 +97,7 @@ var myURL = "https://ppdb-ep.herokuapp.com/formdata";
             if(reg_t3.test(psdata[i].fte_status))
                 t3++;
           }
-          //STUDENTS PLACED IN T1 --- PIE CHART 
+          //STUDENTS PLACED IN T1 --- PIE CHART
           for(var i=0;i<no_of_students;i++)
           {
             if(reg_t1.test(psdata[i].fte_status))
@@ -70,10 +114,10 @@ var myURL = "https://ppdb-ep.herokuapp.com/formdata";
                 {
                     t1_above9++;
                 }
-            }   
+            }
           }
 
-          //STUDENTS PLACED IN T2 --- PIE CHART 
+          //STUDENTS PLACED IN T2 --- PIE CHART
           for(var i=0;i<no_of_students;i++)
           {
             if(reg_t2.test(psdata[i].fte_status))
@@ -90,10 +134,10 @@ var myURL = "https://ppdb-ep.herokuapp.com/formdata";
                 {
                     t2_above9++;
                 }
-            }    
-          } 
+            }
+          }
 
-          //STUDENTS PLACED IN T3 --- PIE CHART 
+          //STUDENTS PLACED IN T3 --- PIE CHART
           for(var i=0;i<no_of_students;i++)
           {
             if(reg_t3.test(psdata[i].fte_status))
@@ -110,13 +154,14 @@ var myURL = "https://ppdb-ep.herokuapp.com/formdata";
                 {
                     t3_above9++;
                 }
-            }    
-          } 
+            }
+          }
+		  myFunction();
         });
 
 
 
-document.getElementById("results").addEventListener("click", myFunction);
+//document.getElementById("results").addEventListener("click", myFunction);
 function myFunction() {
     var chart = new CanvasJS.Chart("chartContainer",
     {
@@ -202,7 +247,7 @@ function myFunction() {
     });
     chart3.render();
 
-    
+
     var chart4 = new CanvasJS.Chart("chartContainer4",
     {
         theme: "light2", // "light1", "light2", "dark1", "dark2"
@@ -235,13 +280,21 @@ function myFunction() {
 
 
 <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-<div id="chartContainer" style="width: 45%; height: 300px;display: inline-block;"></div>
+<div style="width: 40%;position: absolute;left: 5%;">
+<div id="chartContainer" style="width: 100%; height: 300px;display: inline-block;"></div>
 <br/>
-<div id="chartContainer2" style="width: 45%; height: 300px;display: inline-block;"></div> 
+<div id="chartContainer2" style="width: 100%; height: 300px;display: inline-block;"></div>
 <br/>
-<div id="chartContainer3" style="width: 45%; height: 300px;display: inline-block;"></div>  
+</div>
+<div style="width: 40%;position: absolute;right: 10%;">
+<div id="chartContainer3" style="width: 100%; height: 300px;display: inline-block;"></div>
 <br/>
-<div id="chartContainer4" style="width: 45%; height: 300px;display: inline-block;"></div>  
-
+<div id="chartContainer4" style="width: 100%; height: 300px;display: inline-block;"></div>
+</div>
+<div style="position:absolute; bottom:0; height:10%; width:99%; background-color:black">
+	<div style="color:white;position:absolute;left:50%;right:50%" onclick="window.location.href='employee_login.html'">
+		<h2>Close</h2>
+	</div>
+</div>
 </body>
 </html>
