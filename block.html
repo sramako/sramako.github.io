@@ -121,11 +121,11 @@ $("#profile").text("Welcome, "+u);
 			  {
 				  if(query_type=="name") {
 					  if(typeof names[i]!="undefined") {
-					  if(names[i].startsWith(q))
-					  {
-						  res.push(i);
-					  }
-				  }
+						  if(names[i].startsWith(q))
+						  {
+							  res.push(i);
+						  }
+				  		}
 				  }
 				  else {
 				  		if(names[i].includes(q))
