@@ -8,12 +8,11 @@ var span = document.getElementsByClassName("close");
 
 // When the user clicks on <span> (x), close the modal
 closeform = function() {
-	console.log("CLOSE");
+	//console.log("CLOSE");
 	$("#view").show();
 	document.getElementById('modal').style.display = "none";
 	document.getElementById("search").value="";
 }
-
 
 //ADD ELEMENT
 
@@ -30,7 +29,7 @@ function closeSelector() {
 function getFormData($form){
     var unindexed_array = $form.serializeArray();
     var indexed_array = {};
-    console.log(unindexed_array);
+    //console.log(unindexed_array);
     $.map(unindexed_array, function(n, i){
 		if(n['name'] in indexed_array)
 		{
@@ -56,6 +55,9 @@ addElement = function( count, que, res ) {
         var element = angular.element("<div id="+count+"  class=form-element >"+"</div>");
         var target = document.getElementById('preview');
         angular.element(target).append(element);
+		closebtn = angular.element("<span class=\"close\" id=\"close\" onclick=\"close()\">&times;</span>");
+		element.append(closebtn);
+        element.append()
 
         $("#"+count).append("<h1>"+que+"</h1>");
         q[count-1] = que;
@@ -87,10 +89,11 @@ addStudentElement = function( count, que, res ) {
         var element = angular.element("<div id="+count+"  class=form-element >"+"</div>");
         var target = document.getElementById('postview');
         angular.element(target).append(element);
+        //console.log(count,que,res);
 
         $("#"+count).append("<h1>"+que+"</h1>");
         qs[count-1] = que;
-		console.log(qs);
+		//console.log(qs);
 
         if(res=="Text"){
                 // $("#preview").append("<input type=\"text\" ng-model=\"e.q"+count+"\"/>");
@@ -119,20 +122,20 @@ addStudentElement = function( count, que, res ) {
         }
         //PARSE OTHER TYPES
 
-		console.log(JSON.stringify(studentForm));
+		//console.log(JSON.stringify(studentForm));
 
 }
 
 createStudentForm = function() {
-	alert("CAught");
-	console.log(companyName);
+	alert("Caught");
+	//console.log(companyName);
 	$.post("https://ppdb-ep.herokuapp.com/savetemplate",
 	{
 		"company":companyName,
 		"form":studentForm
 	},
 	function(data) {
-		console.log(JSON.stringify(data));
+		//console.log(JSON.stringify(data));
 		swal("Form Sent!");
 		window.location.href = "announcements.html"
 	});
@@ -145,7 +148,7 @@ app.controller('myCtrl', function($scope) {
 		$scope.today=new Date();
 		$scope.message="Waiting for entry.";
         $scope.load = function() {
-                console.log("Loading Form Template");
+                //console.log("Loading Form Template");
 
                 $.getJSON('sample-data/formtemplate.json',function(data){
                         //console.log(data);
@@ -157,6 +160,7 @@ app.controller('myCtrl', function($scope) {
                                 if(Object.keys(val).length==2)
                                 {
                                         options = val[1].values;
+                                        //console.log(options);
                                 }
                                 //console.log(options);
 								if(appState==0) {
@@ -187,7 +191,7 @@ app.controller('myCtrl', function($scope) {
         }
 
 		$.getJSON('https://ppdb-ep.herokuapp.com/compdata', function(data) {
-			console.log(Object.values(data));
+			//console.log(Object.values(data));
 			// $scope.events=Object.values(data);
 			var ret = new Array();
 			$scope.companies=new Array();
@@ -252,11 +256,11 @@ app.controller('myCtrl', function($scope) {
 					addStudentElement($scope.count,$scope.elem.que,$scope.elem.res);
 				}
                 formData[$scope.count] =  JSON.stringify($scope.elem);
-                console.log(formData);
+                //console.log(formData);
         };
         $scope.newElement = function() {
-                console.log("Handled");
-                console.log($scope.elem);
+                //console.log("Handled");
+                //console.log($scope.elem);
                 closeSelector();
                 $scope.create();
         };
@@ -274,8 +278,8 @@ app.controller('myCtrl', function($scope) {
                 var data = getFormData($form);
                 $("#sample").empty();
 				$("#modal").css("display","block");
-                console.log(data);
-				console.log(data["Company"]);
+                //console.log(data);
+				//console.log(data["Company"]);
                 var len = q.length;
 				$("#view").hide();
 				companyName = data[q[0]];
@@ -291,7 +295,7 @@ app.controller('myCtrl', function($scope) {
 				var str=$scope.events[i];
 				var d = str.split("-");
 				var dt = new Date(d[0]+"/"+d[1]+"/"+d[2]);
-				console.log("Check : "+dt);
+				//console.log("Check : "+dt);
 				if( dt.getTime()==$scope.date.getTime() ) {
 					$scope.message="Date already taken by "+$scope.companies[i];
 					return true;
@@ -315,7 +319,7 @@ app.controller('myCtrl', function($scope) {
 		 $(document).ready(function() {
 		   $('#submit').click(function() {
 			   if(eventposted==0) {
-				   console.log("Hi"+eventposted);
+				   //console.log("Hi"+eventposted);
 		     		foo();
 			}
 		   });

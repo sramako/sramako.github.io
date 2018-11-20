@@ -14,7 +14,14 @@
   <link rel="stylesheet" type="text/css" href="css/imagehover.min.css">
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <link rel="stylesheet" href="css/formbuilder.css">
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script type="text/javascript">
+  	function close() {
+		console.log("Here")
+		//var c = document.getElementById("0");
+		//console.log(c);
+	}
+  </script>
 </head>
 
 <html lang="en">
@@ -54,9 +61,11 @@ function test()
 		<!--/ Navigation bar-->
 
         <div ng-app="myApp" ng-controller="myCtrl">
+
 				<iframe name="formDestination" style="display:none;position:absolute"></iframe>
 
 				<form target="formDestination" id="preview" action="https://ppdb-ep.herokuapp.com/addnewcomp" method="POST" ng-init="load()">
+
 				<!-- <form target="formDestination" id="preview" action="server/company.php" method="POST" ng-init="load()"> -->
 						<div id="modal">
 						  <div class="modal-content">
@@ -66,6 +75,7 @@ function test()
 						  </div>
 						</div>
 						<div id="0" class="form-element">
+							<span class="close" id="close" onclick="close()">&times;</span>
 							<h1>Date</h1>
 							<input type=date ng-model="date" name="Date">
 							<br/>
