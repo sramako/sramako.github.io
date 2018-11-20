@@ -92,11 +92,19 @@ console.log("inside showcompany");
 
 
    download =function() {
-	   api= "https://ppdb-ep.herokuapp.com/getformresponses?company=";
+	   api= "mailclient.html?company=";
 	   api+=company.comp[i]["Company"];
 	   window.location.href =api;
 	   console.log(api);
    }
+
+   email =function() {
+	  api= "https://ppdb-ep.herokuapp.com/getformresponses?company=";
+	  api+=company.comp[i]["Company"];
+	  window.location.href =api;
+	  console.log(api);
+   }
+
   </script>
 
 
@@ -1300,6 +1308,7 @@ width: 100%;
     <div class="modal-footer">
 		<div>
 			<button type="button" name="button" onclick="download()">Download</button>
+			<button type="button" name="button" onclick="email()">Email</button>
 	  </div>
     </div>
   </div>
