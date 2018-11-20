@@ -13,8 +13,10 @@
 				var url_string = window.location.href;
 				var url = new URL(url_string);
 				var c = url.searchParams.get("company");
+				var usn = url.searchParams.get("usn");
 				console.log(c);
 				setCookie("company",c,1);
+				etCookie("usn",usn,1);
 				window.location.href="form.html";
 
 		</script>
