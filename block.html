@@ -7,26 +7,45 @@
   <title>Student Details</title>
   <meta name="description" content="Free Bootstrap Theme by BootstrapMade.com">
   <meta name="keywords" content="free website templates, free bootstrap themes, free template, free bootstrap, free website template">
-
+  
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans|Candal|Alegreya+Sans">
   <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/imagehover.min.css">
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <script src="js/session.js"></script>
   <script src="js/jquery.min.js"></script>
   <script src="js/angular.min.js"></script>
+
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<style>
+#loading {
+    background: url('giphy.gif') no-repeat center center;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+</style>
+<script>$(window).ready(function() {
+    $('#loading').hide();
+});</script>
   <script>
+
   u=check_login_admin();
-  function test()
-  {
-  	$("#profile").text("Welcome, "+u);
-  }
+
+function test() {
+$("#profile").text("Welcome, "+u);
+}
+  	
+  
   </script>
   <script>
 	  psdata = new Object();
 	  names = new Array();
+          blocked=new Array();
+          
+          
 	  query_type="name";
 
 	  var myURL = "https://ppdb-ep.herokuapp.com/formdata";
@@ -60,8 +79,8 @@
 	  closeform = function() {
 		  console.log("CLOSE");
 		  document.getElementById('modal').style.display = "none";
-		  document.getElementById("search").value="";
-	  }
+		  document.getElementById("search").value="";                
+                    }
 
 	  // When the user clicks anywhere outside of the modal, close it
 	  window.onclick = function(event) {
@@ -69,6 +88,7 @@
 		  if (event.target == modal) {
 			  document.getElementById('modal').style.display = "none";
 			  document.getElementById("search").value="";
+			  
 		  }
 	  }
 
@@ -129,10 +149,28 @@
 		  getDetails(psdata[i].usn);
 		  container.style.visibility="hidden";
 		  document.getElementById('modal').style.display = "block";
+		  document.getElementById("button").innerHTML="BLOCK"
+		
+		if( psdata[i].blacklisted==true)
+		{
+			 document.getElementById("button").innerHTML="UNBLOCK";
+			 psdata[i].blacklisted=false;
+		}
+                   if(blocked.length!=0 && blocked.includes(psdata[i].usn))
+		{
+			
+                      document.getElementById("button").innerHTML="UNBLOCK";
+                     psdata[i].blacklisted=false;
+                     
+                }
+                  
+
+
 	  }
 
 	  showResult=function(res)
 	  {
+		
 		  console.log("Show Result called");
 		  search = document.getElementById("search");
 		  container = document.getElementById("container");
@@ -149,6 +187,10 @@
 		  {
 			  container.innerHTML='';
 			  container.style.visibility="visible";
+			  /*if(container.style.display=="block")
+				{
+					container.style.display="unblock";
+				}*/
 			  for(f in res)
 			  {
 				  console.log("populating");
@@ -160,7 +202,12 @@
 				  itemDiv.onclick=setName;
 			  }
 		  }
+                  
+                 
 		  container.style.display="block";
+                  
+		  
+                  
 	  }
 
 	  gather = function() {
@@ -168,6 +215,7 @@
 		  console.log(company);
 	  }
 
+	
 	  block=function() {
 		  // $.post("",
 		  // {
@@ -179,11 +227,40 @@
 		  //
 			//   }
 		  // });
-		  document.getElementById("container").style.display="none";
-		  swal("Success");
-	  }
+		
+		//check();
+		
+                 
+		if(document.getElementById("button").innerHTML=="BLOCK")
+		{
+			blocked.push(psdata[i].usn);
+			
 
-  </script>
+			console.log(blocked)
+
+
+			document.getElementById("container").style.display="none";
+
+			swal("Success");
+			 psdata[i].blacklisted=true;
+			document.getElementById("button").innerHTML="UNBLOCK";
+
+
+                }
+		else
+		{
+			blocked.pop();
+			
+			document.getElementById("container").style.display="none";
+
+			swal("Success");
+			 psdata[i].blacklisted=false;
+			document.getElementById("button").innerHTML="BLOCK";
+		}
+                
+	  }
+           
+</script>
 
 	<style>
 
@@ -293,8 +370,12 @@
 </head>
 
 <body onload="test()">
+<div id="loading"></div>
+        
+	
+
 	<!--Navigation bar-->
-	<nav class="navbar navbar-default navbar-fixed-top" style="background-color:#050505;position:relative;border: 0;" >
+		<nav class="navbar navbar-default navbar-fixed-top" style="background-color:#050505;position:relative;border: 0;" >
 	  <div class="container">
 		<div class="navbar-header">
 		  <a class="navbar-brand" style="color:#d32f2f;" href="announcements.html">PESU Placement - &#9819 ADMINISTRATOR</a>
@@ -313,6 +394,7 @@
 		</div>
 	  </div>
 	</nav>
+
 	<!--/ Navigation bar-->
 
   <!-- <div class="container details">
@@ -344,7 +426,7 @@
 		  </div>
 		  <br/>
 		  <div align="center">
-			  <button class="btn btn btn-danger btn-lg" onclick="block()">BLOCK</button>
+			  <button class="btn btn btn-danger btn-lg" id="button" onclick="block()">BLOCK</button>
 		  </div>
 	  </div>
   </div>
@@ -377,6 +459,7 @@
 
   <script type="text/javascript">
     var p = document.getElementById("result");
+    
 
     function getDetails(s){
 		console.log("GET DETAILS CALLED");
@@ -384,7 +467,7 @@
           for(i=0;i<psdata.length;i++){
             if(psdata[i].usn==s){
               console.log(psdata[i].usn+" "+psdata[i].name+" "+psdata[i].email);
-              //p.innerHTML = data[i].usn+" "+data[i].name+" "+data[i].email+" "+data[i].score_gpa+" "+data[i].intern_status+" "+data[i].fte_status+" "+data[i].blacklisted
+              //p.innerHTML = data[i].usn+" "+data[i].name+" "+data[i].email+" "+data[i].score_gpa+" "+data[i].intern_status+" "+data[i].fte_status+" "+data[i].f
               var usn = document.createElement('div');
               var name = document.createElement('div');
               var email = document.createElement('div');
@@ -405,7 +488,7 @@
               // usn.innerHTML += "GPA: " + psdata[i].score_gpa + "<br/>";
               p.innerHTML += "Intern Status: " + psdata[i].intern_status + "<br/>";
               p.innerHTML += "FTE Status: " + psdata[i].fte_status + "<br/>";
-              p.innerHTML += "Blacklisted: " + psdata[i].blacklisted + "<br/>";
+              p.innerHTML += "Blacklisted: " + psdata[i].blacklisted + "<br/>";           
               tf = 1;
               break;
             }
