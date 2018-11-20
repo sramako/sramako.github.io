@@ -24,11 +24,11 @@
 	<script>
 	c=getCookie("login");
 	console.log("+"+c+"+");
-	//u=check_login();
+	u=check_login();
 	function test()
 	{
 		console.log("Test");
-		//$("#profile").text("Welcome, "+u);
+		$("#profile").text("Welcome, "+u);
 		obj1.getDetails()
 		//showFile();
 	}
@@ -47,9 +47,9 @@
 					console.log("+++"+JSON.stringify(company.comp[i])); k=1;
 					return company.comp[i];
 				}
-				
+
 			}
-			
+
 		}
 		if(k==0)
 				{
@@ -67,7 +67,7 @@ console.log("inside showcompany");
    if(s != "Not found")
    {
 	var tbl=$("<table/>").attr("id","mytable");
-	
+
 	$(".modal-body").append(tbl);
 
 	var tr1="<tr><td>"+s["Company"]+"</td></tr>";
@@ -77,7 +77,7 @@ console.log("inside showcompany");
 	var tr5="<tr><td>"+s["Eligibilty"]+"</td></tr>";
 	var tr6="<tr><td>"+s["Online Test Platform"]+"</td></tr>";
 	var tr7="<tr><td>"+s["Number of Rounds"]+"</td></tr>";
-	
+
 
 	$("#mytable").append(tr1+tr2+tr3+tr4+tr5+tr6+tr7);
 	}
@@ -87,9 +87,9 @@ console.log("inside showcompany");
 	$(".modal-body").append("Details Not Available");
 	}
    }
-   
-   
-   
+
+
+
 
    download =function() {
 	   api= "https://ppdb-ep.herokuapp.com/getformresponses?company=";
@@ -221,20 +221,20 @@ window.res = [];
 var obj1={
 				xhr: new XMLHttpRequest(),
 				getDetails:function(){
-					
-					
+
+
 					this.xhr.onreadystatechange=this.showFile;
 					this.xhr.open("GET","https://ppdb-ep.herokuapp.com/compdata",true);
 					this.xhr.send();
 				},
 				showFile:function showFile(){
-					
+
 					if(this.readyState==4 && this.status==200){
 						var url = window.location.search;
 						url = url.replace("?", ''); // remove the ?
 						a=url.split("=");
-						var company=a[1];						
-						var res=this.responseText; 
+						var company=a[1];
+						var res=this.responseText;
 						//convert to json object
 						var obj = JSON.parse(res);
 						var i;
@@ -243,10 +243,10 @@ var obj1={
 						var j;
 						compdata=new Object();
 						index=0
-						
+
 						for(j=0;j<obj.length;j++)
-						{	
-							
+						{
+
 							if(obj[j].hasOwnProperty("Date"))
 							{
 								if(obj[j]["Date"]!=""){
@@ -255,27 +255,27 @@ var obj1={
 								}
 							}
 						}
-						
+
 						res=Array.from(Object.keys(compdata), k=>compdata[k]);
 
-					
-							
+
+
 
 						res.sort(function(a, b) {
-							
+
 							ar=a["Date"].split("-");
 							br=b["Date"].split("-");
-						
-							
-							
+
+
+
     var dateA = new Date(ar[0],ar[1],ar[2]).getTime(), dateB = new Date(br[0],br[1],br[2]).getTime();
     return dateA - dateB;
 
 
 });
-						
-						
-						
+
+
+
 						date(res);
 
 }}}
@@ -292,7 +292,7 @@ if(month>comp1[1])
 
 	update("second","first");
 	update("third","second");
-	update("fourth","third");	
+	update("fourth","third");
 	update("fifth","fourth");
 	newcompany(compdate);
 }
@@ -301,7 +301,7 @@ else if(day>comp1[2])
 	console.log("inside");
 	update("second","first");
 	update("third","second");
-	update("fourth","third");	
+	update("fourth","third");
 	update("fifth","fourth");
 	newcompany(compdate);
 }}
@@ -312,7 +312,7 @@ function update(first,second)
 	document.getElementById(second).innerHTML=document.getElementById(first).innerHTML;
 	document.getElementById(second+"data").innerHTML=document.getElementById(first+"data").innerHTML;
 	document.getElementById(second+"data").href=document.getElementById(first+"data").href;
-	
+
 }
 
 function newcompany(cd){
@@ -1445,7 +1445,7 @@ btn.onclick = function() {
 span.onclick = function() {
 	modal.style.display = "none";
 	$(".modal-body").empty();
-	
+
 }
 
 // When the user clicks anywhere outside of the modal, close it
@@ -1453,7 +1453,7 @@ window.onclick = function(event) {
 	if (event.target == modal) {
 		modal.style.display = "none";
 		$(".modal-body").empty();
-		
+
 	}
 }
 </script>
