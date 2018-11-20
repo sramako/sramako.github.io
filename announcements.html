@@ -91,14 +91,14 @@ console.log("inside showcompany");
 
 
 
-   download =function() {
+   email =function() {
 	   api= "mailclient.html?company=";
 	   api+=company.comp[i]["Company"];
 	   window.location.href =api;
 	   console.log(api);
    }
 
-   email =function() {
+   download =function() {
 	  api= "https://ppdb-ep.herokuapp.com/getformresponses?company=";
 	  api+=company.comp[i]["Company"];
 	  window.location.href =api;
